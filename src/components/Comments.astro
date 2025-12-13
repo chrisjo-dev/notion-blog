@@ -1,0 +1,144 @@
+---
+// Giscus Comments Component
+// Note: Configure these values with your actual GitHub repository
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<div class:list={['comments-wrapper', className]}>
+  <div class="comments-header">
+    <h3>Comments</h3>
+    <p class="comments-note">
+      💬 Sign in with GitHub to leave a comment. Comments are public and stored in GitHub Discussions.
+    </p>
+  </div>
+  <div id="giscus-container" class="giscus">
+    <!-- Giscus will be loaded here -->
+  </div>
+</div>
+
+<style>
+  .comments-wrapper {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 2px solid var(--color-border);
+  }
+
+  .comments-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .comments-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .comments-note {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    padding: var(--space-md);
+    background-color: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  .giscus {
+    min-height: 200px;
+  }
+</style>
+
+<script>
+  // Giscus configuration
+  // ⚠️ IMPORTANT: Update these values with your actual GitHub repository details
+  const GISCUS_CONFIG = {
+    repo: 'your-username/your-repo', // ⚠️ Replace with your repo
+    repoId: 'YOUR_REPO_ID', // ⚠️ Get this from https://giscus.app
+    category: 'Announcements', // or 'General', 'Q&A', etc.
+    categoryId: 'YOUR_CATEGORY_ID', // ⚠️ Get this from https://giscus.app
+    mapping: 'pathname', // How comments are mapped to pages
+    strict: '0',
+    reactionsEnabled: '1',
+    emitMetadata: '0',
+    inputPosition: 'top', // or 'bottom'
+    lang: 'ko', // or 'en', 'zh-CN', etc.
+  };
+
+  function loadGiscus() {
+    const container = document.getElementById('giscus-container');
+    if (!container) return;
+
+    // Get current theme
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark'
+      ? 'dark'
+      : 'light';
+
+    // Create script element
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', GISCUS_CONFIG.repo);
+    script.setAttribute('data-repo-id', GISCUS_CONFIG.repoId);
+    script.setAttribute('data-category', GISCUS_CONFIG.category);
+    script.setAttribute('data-category-id', GISCUS_CONFIG.categoryId);
+    script.setAttribute('data-mapping', GISCUS_CONFIG.mapping);
+    script.setAttribute('data-strict', GISCUS_CONFIG.strict);
+    script.setAttribute('data-reactions-enabled', GISCUS_CONFIG.reactionsEnabled);
+    script.setAttribute('data-emit-metadata', GISCUS_CONFIG.emitMetadata);
+    script.setAttribute('data-input-position', GISCUS_CONFIG.inputPosition);
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', GISCUS_CONFIG.lang);
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    container.appendChild(script);
+  }
+
+  // Function to send theme change message to Giscus iframe
+  function updateGiscusTheme(theme: string) {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: theme,
+            },
+          },
+        },
+        'https://giscus.app'
+      );
+    }
+  }
+
+  // Load Giscus when page loads
+  loadGiscus();
+
+  // Listen for theme changes
+  function setupThemeObserver() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          const theme = document.documentElement.getAttribute('data-theme') === 'dark'
+            ? 'dark'
+            : 'light';
+          updateGiscusTheme(theme);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+  }
+
+  setupThemeObserver();
+
+  // Handle page navigation (for View Transitions)
+  document.addEventListener('astro:after-swap', () => {
+    loadGiscus();
+  });
+</script>
