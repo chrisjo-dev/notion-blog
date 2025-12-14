@@ -92,6 +92,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync from Notion (for build)
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_ROOT_PAGE_ID: ${{ secrets.NOTION_ROOT_PAGE_ID }}
+        run: npm run sync
+
       - name: Build site
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
