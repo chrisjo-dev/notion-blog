@@ -55,7 +55,7 @@ Notion을 CMS로 사용하는 개인 블로그 시스템입니다. Astro 정적 
 3. 다음 Secrets 추가:
    - `NOTION_TOKEN`: Notion Integration Token
    - `NOTION_ROOT_PAGE_ID`: Notion 루트 페이지 ID
-   - `SITE_URL` (선택): 사이트 URL (예: `https://yourusername.github.io/blog`)
+   - `SITE_URL` (선택): 사이트 URL (예: `https://yourusername.github.io/notion-blog`)
 
 4. Repository Settings → Pages로 이동
    - Source: "GitHub Actions" 선택
@@ -72,14 +72,14 @@ Notion을 CMS로 사용하는 개인 블로그 시스템입니다. Astro 정적 
 ```javascript
 export default defineConfig({
   site: 'https://yourusername.github.io',  // 본인의 GitHub Pages URL
-  base: '/blog',  // Repository 이름 (루트 도메인이면 '/' 사용)
+  base: '/notion-blog',  // Repository 이름 (루트 도메인이면 '/' 사용)
   // ...
 });
 ```
 
 #### `public/robots.txt`
 ```
-Sitemap: https://yourusername.github.io/blog/sitemap-index.xml
+Sitemap: https://yourusername.github.io/notion-blog/sitemap-index.xml
 ```
 
 #### `src/pages/posts/[...slug].astro`
@@ -102,7 +102,7 @@ git push origin main
 
 2. GitHub Actions에서 자동으로 동기화 및 배포가 시작됩니다
 3. Actions 탭에서 진행 상황 확인
-4. 완료 후 `https://yourusername.github.io/blog` 에서 블로그 확인
+4. 완료 후 `https://yourusername.github.io/notion-blog` 에서 블로그 확인
 
 ## 로컬 개발
 
@@ -279,7 +279,7 @@ notion-blog/
 1. [Google Search Console](https://search.google.com/search-console) 접속
 2. 속성 추가: 사이트 URL 입력
 3. 소유권 확인 (HTML 파일 업로드 또는 메타 태그 방식)
-4. Sitemap 제출: `https://yourusername.github.io/blog/sitemap-index.xml`
+4. Sitemap 제출: `https://yourusername.github.io/notion-blog/sitemap-index.xml`
 
 ## 문제 해결
 

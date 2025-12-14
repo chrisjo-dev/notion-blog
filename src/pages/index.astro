@@ -43,7 +43,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
         <div class="posts-grid">
           {posts.map((post) => (
             <article class="post-card">
-              <a href={`/blog/posts/${post.slug}/`} class="card-link">
+              <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
                 <div class="card-content">
                   <div class="card-meta">
                     <time datetime={post.data.date} class="card-date">

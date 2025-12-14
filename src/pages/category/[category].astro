@@ -47,7 +47,7 @@ const posts = allPosts
     <!-- Category Header -->
     <section class="category-header">
       <div class="breadcrumb">
-        <a href="/blog/">Home</a>
+        <a href="/notion-blog/">Home</a>
         <span class="separator">/</span>
         <span class="current">{category}</span>
       </div>
@@ -65,13 +65,13 @@ const posts = allPosts
         {posts.length === 0 ? (
           <div class="empty-state">
             <p>No posts found in this category.</p>
-            <a href="/blog/" class="back-link">← Back to all posts</a>
+            <a href="/notion-blog/" class="back-link">← Back to all posts</a>
           </div>
         ) : (
           <div class="posts-grid">
             {posts.map((post) => (
               <article class="post-card">
-                <a href={`/blog/posts/${post.slug}/`} class="card-link">
+                <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
                   <div class="card-content">
                     <div class="card-meta">
                       <time datetime={post.data.date} class="card-date">

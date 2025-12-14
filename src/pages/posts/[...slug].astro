@@ -35,7 +35,7 @@ const relatedPosts = allPosts
     <!-- Breadcrumb Navigation -->
     {post.data.hierarchy && post.data.hierarchy.length > 0 && (
       <nav class="breadcrumb">
-        <a href="/blog/" class="breadcrumb-link">Home</a>
+        <a href="/notion-blog/" class="breadcrumb-link">Home</a>
         <span class="breadcrumb-separator">/</span>
         {post.data.hierarchy.slice(0, -1).map((item, index) => {
           // Generate category slug for intermediate levels
@@ -47,7 +47,7 @@ const relatedPosts = allPosts
 
           return (
             <>
-              <a href={`/blog/category/${categorySlug}/`} class="breadcrumb-link">{item}</a>
+              <a href={`/notion-blog/category/${categorySlug}/`} class="breadcrumb-link">{item}</a>
               <span class="breadcrumb-separator">/</span>
             </>
           );
@@ -70,7 +70,7 @@ const relatedPosts = allPosts
         {post.data.category && (
           <>
             <span class="meta-separator">•</span>
-            <a href={`/blog/category/${post.data.category
+            <a href={`/notion-blog/category/${post.data.category
               .toLowerCase()
               .replace(/\//g, '-')
               .replace(/\s+/g, '-')
@@ -94,7 +94,7 @@ const relatedPosts = allPosts
         <h2 class="related-title">Related Posts</h2>
         <div class="related-grid">
           {relatedPosts.map((relatedPost) => (
-            <a href={`/blog/posts/${relatedPost.slug}/`} class="related-card">
+            <a href={`/notion-blog/posts/${relatedPost.slug}/`} class="related-card">
               <h3 class="related-card-title">{relatedPost.data.title}</h3>
               {relatedPost.data.description && (
                 <p class="related-card-description">{relatedPost.data.description}</p>

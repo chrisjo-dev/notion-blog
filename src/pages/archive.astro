@@ -73,7 +73,7 @@ const monthNames = [
                   <ul class="post-list">
                     {posts.map(post => (
                       <li class="post-item">
-                        <a href={`/blog/posts/${post.slug}/`} class="post-link">
+                        <a href={`/notion-blog/posts/${post.slug}/`} class="post-link">
                           <time datetime={post.data.date} class="post-date">
                             {new Date(post.data.date).toLocaleDateString('ko-KR', {
                               month: 'short',

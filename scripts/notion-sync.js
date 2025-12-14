@@ -94,7 +94,7 @@ async function downloadImage(url, pageId, imageName) {
       fileStream.on('finish', () => {
         fileStream.close();
         // Return path relative to public directory
-        resolve(`/blog/images/notion/${pageId}/${fileName}`);
+        resolve(`/notion-blog/images/notion/${pageId}/${fileName}`);
       });
 
       fileStream.on('error', (err) => {

@@ -8,16 +8,16 @@ const currentPath = Astro.url.pathname;
   <div class="nav-container">
     <div class="nav-content">
       <!-- Logo / Brand -->
-      <a href="/blog/" class="logo">
+      <a href="/notion-blog/" class="logo">
         <span class="logo-text">Blog</span>
       </a>
 
       <!-- Desktop Navigation -->
       <div class="nav-links">
-        <a href="/blog/" class:list={['nav-link', { active: currentPath === '/blog/' }]}>
+        <a href="/notion-blog/" class:list={['nav-link', { active: currentPath === '/notion-blog/' }]}>
           Home
         </a>
-        <a href="/blog/archive/" class:list={['nav-link', { active: currentPath.startsWith('/blog/archive') }]}>
+        <a href="/notion-blog/archive/" class:list={['nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
           Archive
         </a>
       </div>
@@ -45,10 +45,10 @@ const currentPath = Astro.url.pathname;
 
     <!-- Mobile Navigation -->
     <div id="mobile-menu" class="mobile-menu hidden">
-      <a href="/blog/" class:list={['mobile-nav-link', { active: currentPath === '/blog/' }]}>
+      <a href="/notion-blog/" class:list={['mobile-nav-link', { active: currentPath === '/notion-blog/' }]}>
         Home
       </a>
-      <a href="/blog/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/blog/archive') }]}>
+      <a href="/notion-blog/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
         Archive
       </a>
     </div>
