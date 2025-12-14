@@ -95,6 +95,9 @@ const postsData = allPosts.map(post => ({
     </script>
     <footer class="footer">
       <div class="footer-content">
+        <div class="visitor-stats">
+          <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fchrisjo-dev.github.io%2Fnotion-blog&count_bg=%232563EB&title_bg=%23334155&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false" alt="visitors">
+        </div>
         <p>&copy; {new Date().getFullYear()} Chris. All rights reserved.</p>
         <p class="footer-note">Powered by <a href="https://notion.so" target="_blank" rel="noopener noreferrer">Notion</a> & <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a></p>
       </div>
@@ -197,6 +200,18 @@ const postsData = allPosts.map(post => ({
     text-align: center;
     color: var(--color-text-secondary);
     font-size: 0.9rem;
+  }
+
+  .visitor-stats {
+    margin-bottom: var(--space-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .visitor-stats img {
+    height: 20px;
+    border-radius: 4px;
   }
 
   .footer-note {
