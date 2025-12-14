@@ -32,15 +32,29 @@ const relatedPosts = allPosts
   }}
 >
   <article class="article-container">
-    <!-- Back Button -->
-    <div class="back-link-wrapper">
-      <a href="/blog/" class="back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Back to all posts
-      </a>
-    </div>
+    <!-- Breadcrumb Navigation -->
+    {post.data.hierarchy && post.data.hierarchy.length > 0 && (
+      <nav class="breadcrumb">
+        <a href="/blog/" class="breadcrumb-link">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        {post.data.hierarchy.slice(0, -1).map((item, index) => {
+          // Generate category slug for intermediate levels
+          const categorySlug = item
+            .toLowerCase()
+            .replace(/\//g, '-')
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-가-힣]/g, '');
+
+          return (
+            <>
+              <a href={`/blog/category/${categorySlug}/`} class="breadcrumb-link">{item}</a>
+              <span class="breadcrumb-separator">/</span>
+            </>
+          );
+        })}
+        <span class="breadcrumb-current">{post.data.title}</span>
+      </nav>
+    )}
 
     <!-- Article Header -->
     <header class="post-header">
@@ -53,6 +67,19 @@ const relatedPosts = allPosts
             day: 'numeric'
           })}
         </time>
+        {post.data.category && (
+          <>
+            <span class="meta-separator">•</span>
+            <a href={`/blog/category/${post.data.category
+              .toLowerCase()
+              .replace(/\//g, '-')
+              .replace(/\s+/g, '-')
+              .replace(/[^\w\-가-힣]/g, '')}/`}
+              class="category-badge">
+              {post.data.category}
+            </a>
+          </>
+        )}
       </div>
     </header>
 
@@ -97,32 +124,41 @@ const relatedPosts = allPosts
     padding: var(--space-xl) var(--space-md);
   }
 
-  /* Back Link */
-  .back-link-wrapper {
-    margin-bottom: var(--space-xl);
-  }
-
-  .back-link {
-    display: inline-flex;
+  /* Breadcrumb Navigation */
+  .breadcrumb {
+    display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-size: 0.875rem;
     color: var(--color-text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
   }
 
-  .back-link:hover {
+  .breadcrumb-link {
     color: var(--color-accent-primary);
-    background-color: var(--color-bg-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
   }
 
-  .back-link svg {
-    width: 20px;
-    height: 20px;
+  .breadcrumb-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--color-text-tertiary);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   /* Post Header */
@@ -150,6 +186,36 @@ const relatedPosts = allPosts
   .post-date {
     font-size: 0.95rem;
     font-weight: 500;
+  }
+
+  .meta-separator {
+    color: var(--color-text-tertiary);
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 4px var(--space-sm);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .category-badge:hover {
+    background-color: var(--color-accent-primary);
+    color: white;
+  }
+
+  [data-theme="dark"] .category-badge {
+    background-color: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+  }
+
+  [data-theme="dark"] .category-badge:hover {
+    background-color: var(--color-accent-hover);
   }
 
   /* Post Content */

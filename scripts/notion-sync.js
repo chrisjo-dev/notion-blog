@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import fs from 'fs/promises';
+import fsSync from 'fs';
 import path from 'path';
 import https from 'https';
 import { fileURLToPath } from 'url';
@@ -87,7 +88,7 @@ async function downloadImage(url, pageId, imageName) {
         return;
       }
 
-      const fileStream = require('fs').createWriteStream(filePath);
+      const fileStream = fsSync.createWriteStream(filePath);
       response.pipe(fileStream);
 
       fileStream.on('finish', () => {
@@ -107,7 +108,14 @@ async function downloadImage(url, pageId, imageName) {
 // Process markdown content and download images
 async function processMarkdownContent(mdString, pageId) {
   let imageCounter = 0;
-  let markdown = mdString.parent || mdString || '';
+
+  // Handle both string and object (with .parent property)
+  let markdown = '';
+  if (typeof mdString === 'string') {
+    markdown = mdString;
+  } else if (mdString && typeof mdString === 'object') {
+    markdown = mdString.parent || '';
+  }
 
   // Find all image URLs in markdown
   const imageRegex = /!\[([^\]]*)\]\((https?:\/\/[^\)]+)\)/g;
@@ -169,24 +177,46 @@ function getPageTitle(page) {
 }
 
 // Fetch all child pages recursively from a parent page
-async function fetchChildPages(blockId) {
+async function fetchChildPages(blockId, parentInfo = null, level = 0) {
   try {
     const response = await notion.blocks.children.list({
       block_id: blockId,
       page_size: 100,
     });
 
-    const childPages = [];
+    const allPages = [];
 
     for (const block of response.results) {
       if (block.type === 'child_page') {
         // Fetch the full page object to get properties
         const page = await notion.pages.retrieve({ page_id: block.id });
-        childPages.push(page);
+        const pageTitle = getPageTitle(page);
+
+        // Build hierarchy information
+        const hierarchy = parentInfo ? [...parentInfo.hierarchy, pageTitle] : [pageTitle];
+        const tags = parentInfo ? [...parentInfo.tags] : [];
+
+        const pageInfo = {
+          page,
+          parent: parentInfo ? parentInfo.id : null,
+          parentTitle: parentInfo ? parentInfo.title : null,
+          hierarchy,
+          tags,
+          level,
+          id: page.id,
+          title: pageTitle,
+        };
+
+        // Add this page to results
+        allPages.push(pageInfo);
+
+        // Recursively fetch children of this page
+        const childPages = await fetchChildPages(page.id, pageInfo, level + 1);
+        allPages.push(...childPages);
       }
     }
 
-    return childPages;
+    return allPages;
   } catch (error) {
     console.error('Error fetching child pages from Notion:', error.message);
     throw error;
@@ -196,9 +226,18 @@ async function fetchChildPages(blockId) {
 // Fetch all pages from the root page
 async function fetchPages() {
   try {
-    console.log('Fetching child pages from root page...');
-    const pages = await fetchChildPages(NOTION_ROOT_PAGE_ID);
-    return pages;
+    console.log('Fetching pages recursively from root page...');
+    const pagesInfo = await fetchChildPages(NOTION_ROOT_PAGE_ID);
+
+    // Log hierarchy information
+    console.log('\nPage hierarchy:');
+    pagesInfo.forEach(info => {
+      const indent = '  '.repeat(info.level);
+      const category = info.parentTitle ? ` [${info.parentTitle}]` : '';
+      console.log(`${indent}- ${info.title}${category} (level ${info.level})`);
+    });
+
+    return pagesInfo;
   } catch (error) {
     console.error('Error fetching pages from Notion:', error.message);
     throw error;
@@ -206,13 +245,15 @@ async function fetchPages() {
 }
 
 // Convert Notion page to markdown file
-async function convertPageToMarkdown(page) {
+async function convertPageToMarkdown(pageInfo) {
+  const { page, parent, parentTitle, hierarchy, tags, level } = pageInfo;
   const pageId = page.id.replace(/-/g, '');
   const title = getPageTitle(page);
   const lastEditedTime = page.last_edited_time;
   const slug = generateUniqueSlug(title);
 
-  console.log(`Processing: ${title}`);
+  const categoryInfo = parentTitle ? ` [${parentTitle}]` : '';
+  console.log(`Processing: ${title}${categoryInfo}`);
 
   try {
     // Get markdown blocks
@@ -227,15 +268,67 @@ async function convertPageToMarkdown(page) {
     // Extract description
     const description = extractDescription(content);
 
-    // Create frontmatter
-    const frontmatter = `---
-title: "${title.replace(/"/g, '\\"')}"
-description: "${description.replace(/"/g, '\\"')}"
-date: "${lastEditedTime}"
-notionId: "${pageId}"
----
+    // Build tags array (all parent categories)
+    const allTags = hierarchy.length > 1 ? hierarchy.slice(0, -1) : [];
 
-`;
+    // Create frontmatter with hierarchy metadata
+    const frontmatterData = {
+      title: title.replace(/"/g, '\\"'),
+      description: description.replace(/"/g, '\\"'),
+      date: lastEditedTime,
+      notionId: pageId,
+    };
+
+    // Add hierarchy metadata
+    if (parentTitle) {
+      frontmatterData.category = parentTitle.replace(/"/g, '\\"');
+    }
+
+    if (allTags.length > 0) {
+      frontmatterData.tags = allTags;
+    }
+
+    if (hierarchy.length > 0) {
+      frontmatterData.hierarchy = hierarchy;
+    }
+
+    if (parent) {
+      frontmatterData.parent = parent.replace(/-/g, '');
+    }
+
+    frontmatterData.level = level;
+
+    // Build frontmatter string
+    let frontmatter = '---\n';
+    frontmatter += `title: "${frontmatterData.title}"\n`;
+    frontmatter += `description: "${frontmatterData.description}"\n`;
+    frontmatter += `date: "${frontmatterData.date}"\n`;
+    frontmatter += `notionId: "${frontmatterData.notionId}"\n`;
+
+    if (frontmatterData.category) {
+      frontmatter += `category: "${frontmatterData.category}"\n`;
+    }
+
+    if (frontmatterData.tags && frontmatterData.tags.length > 0) {
+      frontmatter += `tags:\n`;
+      frontmatterData.tags.forEach(tag => {
+        frontmatter += `  - "${tag.replace(/"/g, '\\"')}"\n`;
+      });
+    }
+
+    if (frontmatterData.hierarchy && frontmatterData.hierarchy.length > 0) {
+      frontmatter += `hierarchy:\n`;
+      frontmatterData.hierarchy.forEach(item => {
+        frontmatter += `  - "${item.replace(/"/g, '\\"')}"\n`;
+      });
+    }
+
+    if (frontmatterData.parent) {
+      frontmatter += `parent: "${frontmatterData.parent}"\n`;
+    }
+
+    frontmatter += `level: ${frontmatterData.level}\n`;
+    frontmatter += `---\n\n`;
 
     // Combine frontmatter and content
     const fullContent = frontmatter + content;
@@ -284,13 +377,13 @@ async function syncNotion() {
     }
     console.log('Cleared existing content\n');
 
-    // Fetch and process pages
-    const pages = await fetchPages();
-    console.log(`Found ${pages.length} pages\n`);
+    // Fetch and process pages (returns array of pageInfo objects)
+    const pagesInfo = await fetchPages();
+    console.log(`\nFound ${pagesInfo.length} total pages\n`);
 
     const results = [];
-    for (const page of pages) {
-      const result = await convertPageToMarkdown(page);
+    for (const pageInfo of pagesInfo) {
+      const result = await convertPageToMarkdown(pageInfo);
       if (result) {
         results.push(result);
       }

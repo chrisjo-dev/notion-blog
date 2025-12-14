@@ -1,0 +1,328 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all posts and extract categories
+const allPosts = await getCollection('posts');
+
+// Count posts per category
+const categoryCount = new Map<string, number>();
+allPosts.forEach(post => {
+  if (post.data.category) {
+    const count = categoryCount.get(post.data.category) || 0;
+    categoryCount.set(post.data.category, count + 1);
+  }
+});
+
+// Sort categories by post count (descending)
+const categories = Array.from(categoryCount.entries())
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count);
+
+const totalPosts = allPosts.length;
+const currentPath = Astro.url.pathname;
+---
+
+<aside class="category-sidebar">
+  <!-- Profile Section -->
+  <div class="sidebar-section profile-section">
+    <h3 class="sidebar-title">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+      About
+    </h3>
+    <div class="profile-content">
+      <p class="profile-description">
+        개발자 Chris의 기술 블로그입니다.
+      </p>
+      <div class="profile-links">
+        <a href="https://github.com/chrisjo-dev" class="profile-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <button id="copy-email" class="profile-link" data-email="wonsang.dev@gmail.com">
+          <span class="profile-text">wonsang.dev@gmail.com</span>
+        </button>
+      </div>
+      <div id="copy-toast" class="copy-toast hidden">이메일이 복사되었습니다!</div>
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="sidebar-section">
+    <h3 class="sidebar-title">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+      </svg>
+      Categories
+    </h3>
+
+    <ul class="category-list">
+      <!-- All Posts -->
+      <li>
+        <a
+          href="/blog/"
+          class:list={['category-link', { active: currentPath === '/blog/' }]}
+        >
+          <span class="category-name">All Posts</span>
+          <span class="category-count">{totalPosts}</span>
+        </a>
+      </li>
+
+      <!-- Individual Categories -->
+      {categories.map(category => {
+        // Create URL-safe slug from category name
+        const categorySlug = category.name
+          .toLowerCase()
+          .replace(/\//g, '-')
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-가-힣]/g, '');
+
+        return (
+          <li>
+            <a
+              href={`/blog/category/${categorySlug}/`}
+              class:list={[
+                'category-link',
+                { active: currentPath.includes(`/category/${categorySlug}/`) }
+              ]}
+            >
+              <span class="category-name">{category.name}</span>
+              <span class="category-count">{category.count}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</aside>
+
+<style>
+  .category-sidebar {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+
+  .sidebar-section {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sidebar-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .sidebar-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .sidebar-title svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-accent-primary);
+  }
+
+  .category-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .category-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    font-size: 0.9rem;
+  }
+
+  .category-link:hover {
+    background-color: var(--color-bg-primary);
+    color: var(--color-accent-primary);
+  }
+
+  .category-link.active {
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    font-weight: 600;
+  }
+
+  .category-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .category-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 var(--space-sm);
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-tertiary);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: var(--space-sm);
+  }
+
+  .category-link.active .category-count {
+    background-color: var(--color-accent-primary);
+    color: white;
+  }
+
+  /* Profile Section */
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .profile-description {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .profile-item,
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    width: 100%;
+  }
+
+  .profile-item {
+    background-color: var(--color-bg-primary);
+  }
+
+  .profile-link {
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .profile-link:hover {
+    background-color: var(--color-bg-primary);
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  button.profile-link {
+    text-align: left;
+  }
+
+  .profile-item svg,
+  .profile-link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .profile-text {
+    word-break: break-all;
+    font-size: 0.9rem;
+  }
+
+  /* Copy Toast */
+  .copy-toast {
+    position: fixed;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-accent-primary);
+    color: white;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1000;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .copy-toast.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    pointer-events: none;
+  }
+
+  /* Mobile: Hide by default */
+  @media (max-width: 1024px) {
+    .category-sidebar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Email copy functionality
+  function initEmailCopy() {
+    const copyBtn = document.getElementById('copy-email');
+    const toast = document.getElementById('copy-toast');
+
+    if (!copyBtn || !toast) return;
+
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email');
+      if (!email) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+
+        // Show toast
+        toast.classList.remove('hidden');
+
+        // Hide toast after 2 seconds
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy email:', err);
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmailCopy);
+  } else {
+    initEmailCopy();
+  }
+</script>

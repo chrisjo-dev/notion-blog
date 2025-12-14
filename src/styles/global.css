@@ -150,3 +150,123 @@ code {
   background-color: var(--color-accent-light);
   color: var(--color-text-primary);
 }
+
+/* Bookmark Cards */
+.bookmark-card {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  margin: var(--space-md) 0;
+  background-color: var(--color-bg-primary);
+}
+
+.bookmark-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent-primary);
+  transform: translateY(-2px);
+}
+
+.bookmark-content {
+  display: flex;
+  width: 100%;
+}
+
+.bookmark-text {
+  flex: 1;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.bookmark-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+}
+
+.bookmark-description {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 1.3;
+}
+
+.bookmark-description.loading {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.bookmark-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: var(--color-text-tertiary);
+  padding: 0;
+  line-height: 1;
+  height: 14px;
+}
+
+.bookmark-favicon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.bookmark-domain {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookmark-image {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+}
+
+.bookmark-image img {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .bookmark-image {
+    width: 120px;
+  }
+
+  .bookmark-content {
+    min-height: 100px;
+  }
+}
+
+/* Hide image on very small screens */
+@media (max-width: 480px) {
+  .bookmark-image {
+    display: none;
+  }
+}

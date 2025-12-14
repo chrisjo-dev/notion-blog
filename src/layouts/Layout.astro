@@ -1,5 +1,7 @@
 ---
 import Navigation from '../components/Navigation.astro';
+import Search from '../components/Search.astro';
+import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
 interface Props {
@@ -15,6 +17,16 @@ interface Props {
 const { title, description = '', article } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL('/blog/og-image.png', Astro.site);
+
+// Get all posts for search
+const allPosts = await getCollection('posts');
+const postsData = allPosts.map(post => ({
+  title: post.data.title,
+  description: post.data.description || '',
+  date: post.data.date,
+  category: post.data.category || '',
+  slug: post.slug,
+}));
 ---
 
 <!doctype html>
@@ -72,15 +84,97 @@ const socialImageURL = new URL('/blog/og-image.png', Astro.site);
   </head>
   <body>
     <Navigation />
+    <Search />
     <main class="main-content">
       <slot />
     </main>
+
+    <!-- Inject posts data for search -->
+    <script define:vars={{ postsData }}>
+      window.allPosts = postsData;
+    </script>
     <footer class="footer">
       <div class="footer-content">
-        <p>&copy; {new Date().getFullYear()} My Blog. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Chris. All rights reserved.</p>
         <p class="footer-note">Powered by <a href="https://notion.so" target="_blank" rel="noopener noreferrer">Notion</a> & <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a></p>
       </div>
     </footer>
+
+    <!-- Bookmark metadata loader -->
+    <script>
+      // Fetch metadata using a link preview API
+      async function loadBookmarkMetadata() {
+        const bookmarks = document.querySelectorAll('.bookmark-card[data-url]');
+
+        for (const bookmark of bookmarks) {
+          const url = bookmark.getAttribute('data-url');
+          if (!url) continue;
+
+          try {
+            // Use Microlink API for link preview
+            const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
+            const response = await fetch(apiUrl);
+
+            if (response.ok) {
+              const data = await response.json();
+
+              if (data.status === 'success' && data.data) {
+                const { title, description, image, logo } = data.data;
+
+                // Update title
+                const titleEl = bookmark.querySelector('.bookmark-title');
+                if (titleEl && title) {
+                  titleEl.textContent = title;
+                }
+
+                // Update description (limit to 200 characters)
+                const descEl = bookmark.querySelector('.bookmark-description');
+                if (descEl && description) {
+                  const truncatedDesc = description.length > 200
+                    ? description.substring(0, 200) + '...'
+                    : description;
+                  descEl.textContent = truncatedDesc;
+                  descEl.classList.remove('loading');
+                } else if (descEl) {
+                  descEl.style.display = 'none';
+                }
+
+                // Update favicon if available
+                const faviconEl = bookmark.querySelector('.bookmark-favicon');
+                if (faviconEl && logo?.url) {
+                  faviconEl.src = logo.url;
+                }
+
+                // Update image if available
+                if (image?.url) {
+                  const imageContainer = bookmark.querySelector('.bookmark-image');
+                  const imageEl = bookmark.querySelector('.bookmark-image img');
+                  if (imageContainer && imageEl) {
+                    imageEl.src = image.url;
+                    imageEl.alt = title || '';
+                    imageContainer.style.display = 'flex';
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            console.warn(`Failed to load bookmark metadata for ${url}:`, error);
+            // Hide loading state
+            const descEl = bookmark.querySelector('.bookmark-description');
+            if (descEl) {
+              descEl.style.display = 'none';
+            }
+          }
+        }
+      }
+
+      // Load metadata when page is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadBookmarkMetadata);
+      } else {
+        loadBookmarkMetadata();
+      }
+    </script>
   </body>
 </html>
 

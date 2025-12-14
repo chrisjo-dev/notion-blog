@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CategorySidebar from '../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
 
 const POSTS_PER_PAGE = 20;
@@ -12,7 +13,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
 ---
 
 <Layout
-  title="My Blog"
+  title="Blog"
   description="Welcome to my personal blog powered by Notion and GitHub Pages"
 >
   <div class="container">
@@ -22,8 +23,13 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
       <p class="hero-description">Thoughts, stories and ideas.</p>
     </section>
 
-    <!-- Posts Grid -->
-    <section class="posts-section">
+    <!-- Main Content with Sidebar -->
+    <div class="content-with-sidebar">
+      <!-- Sidebar (Desktop) -->
+      <CategorySidebar />
+
+      <!-- Posts Grid -->
+      <section class="posts-section">
       <div class="section-header">
         <h2>Latest Posts</h2>
         <p class="post-count">{allPosts.length} {allPosts.length === 1 ? 'post' : 'posts'}</p>
@@ -39,13 +45,18 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
             <article class="post-card">
               <a href={`/blog/posts/${post.slug}/`} class="card-link">
                 <div class="card-content">
-                  <time datetime={post.data.date} class="card-date">
-                    {new Date(post.data.date).toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
-                    })}
-                  </time>
+                  <div class="card-meta">
+                    <time datetime={post.data.date} class="card-date">
+                      {new Date(post.data.date).toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </time>
+                    {post.data.category && (
+                      <span class="category-badge">{post.data.category}</span>
+                    )}
+                  </div>
                   <h3 class="card-title">{post.data.title}</h3>
                   {post.data.description && (
                     <p class="card-description">{post.data.description}</p>
@@ -73,15 +84,22 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
           <button class="pagination-btn" disabled={totalPages === 1}>Next</button>
         </div>
       )}
-    </section>
+      </section>
+    </div>
   </div>
 </Layout>
 
 <style>
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-xl) var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: var(--space-xl) var(--space-md);
+    }
   }
 
   /* Hero Section */
@@ -108,9 +126,30 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
     margin: 0 auto;
   }
 
+  /* Content with Sidebar Layout */
+  .content-with-sidebar {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  @media (max-width: 1024px) {
+    .content-with-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* Posts Section */
   .posts-section {
     margin-top: var(--space-2xl);
+    min-width: 0; /* Prevent grid overflow */
+  }
+
+  @media (max-width: 1024px) {
+    .posts-section {
+      margin-top: 0;
+    }
   }
 
   .section-header {
@@ -142,8 +181,14 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   /* Posts Grid */
   .posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
@@ -183,12 +228,35 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
     height: 100%;
   }
 
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
   .card-date {
     font-size: 0.85rem;
     color: var(--color-text-tertiary);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: 2px var(--space-sm);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-transform: capitalize;
+  }
+
+  [data-theme="dark"] .category-badge {
+    background-color: var(--color-accent-primary);
+    color: var(--color-bg-primary);
   }
 
   .card-title {

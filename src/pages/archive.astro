@@ -1,0 +1,243 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all posts and group by year and month
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// Group posts by year and month
+const postsByYear = new Map<number, Map<number, typeof sortedPosts>>();
+
+sortedPosts.forEach(post => {
+  const date = new Date(post.data.date);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  if (!postsByYear.has(year)) {
+    postsByYear.set(year, new Map());
+  }
+
+  const yearMap = postsByYear.get(year)!;
+  if (!yearMap.has(month)) {
+    yearMap.set(month, []);
+  }
+
+  yearMap.get(month)!.push(post);
+});
+
+// Sort years in descending order
+const years = Array.from(postsByYear.keys()).sort((a, b) => b - a);
+
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+---
+
+<Layout
+  title="Archive - Blog"
+  description="Browse all blog posts organized by date"
+>
+  <div class="container">
+    <!-- Header -->
+    <section class="archive-header">
+      <h1 class="archive-title">Archive</h1>
+      <p class="archive-description">
+        All {allPosts.length} posts organized by date
+      </p>
+    </section>
+
+    <!-- Posts by Year -->
+    <div class="archive-content">
+      {years.map(year => {
+        const months = Array.from(postsByYear.get(year)!.keys()).sort((a, b) => b - a);
+        const yearPostCount = Array.from(postsByYear.get(year)!.values())
+          .reduce((sum, posts) => sum + posts.length, 0);
+
+        return (
+          <section class="year-section">
+            <div class="year-header">
+              <h2 class="year-title">{year}</h2>
+              <span class="year-count">{yearPostCount} {yearPostCount === 1 ? 'post' : 'posts'}</span>
+            </div>
+
+            {months.map(month => {
+              const posts = postsByYear.get(year)!.get(month)!;
+
+              return (
+                <div class="month-section">
+                  <h3 class="month-title">{monthNames[month]}</h3>
+                  <ul class="post-list">
+                    {posts.map(post => (
+                      <li class="post-item">
+                        <a href={`/blog/posts/${post.slug}/`} class="post-link">
+                          <time datetime={post.data.date} class="post-date">
+                            {new Date(post.data.date).toLocaleDateString('ko-KR', {
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </time>
+                          <span class="post-title">{post.data.title}</span>
+                          {post.data.category && (
+                            <span class="post-category">{post.data.category}</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  /* Archive Header */
+  .archive-header {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .archive-title {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: var(--space-sm);
+  }
+
+  .archive-description {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+  }
+
+  /* Archive Content */
+  .archive-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  /* Year Section */
+  .year-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .year-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .year-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .year-count {
+    font-size: 0.9rem;
+    color: var(--color-text-tertiary);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Month Section */
+  .month-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .month-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  /* Post List */
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .post-item {
+    border-left: 2px solid transparent;
+    padding-left: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+
+  .post-item:hover {
+    border-left-color: var(--color-accent-primary);
+  }
+
+  .post-link {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-sm) 0;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-fast);
+  }
+
+  @media (max-width: 768px) {
+    .post-link {
+      grid-template-columns: 60px 1fr;
+      gap: var(--space-sm);
+    }
+  }
+
+  .post-date {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .post-title {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .post-link:hover .post-title {
+    color: var(--color-accent-primary);
+  }
+
+  .post-category {
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+    padding: 2px var(--space-sm);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .post-category {
+      grid-column: 2;
+      margin-top: var(--space-xs);
+    }
+  }
+</style>
