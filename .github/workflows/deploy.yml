@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   # Run on schedule - every 10 minutes
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0 9 * * *' # 매일 오전 9시
 
   # Allow manual trigger
   workflow_dispatch:
