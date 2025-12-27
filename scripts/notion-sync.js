@@ -256,11 +256,17 @@ async function convertPageToMarkdown(pageInfo) {
   console.log(`Processing: ${title}${categoryInfo}`);
 
   try {
-    // Get markdown blocks
+    // Get markdown blocks (only direct children, not nested child_page blocks)
     const mdBlocks = await n2m.pageToMarkdown(page.id);
 
+    // Filter out child_page blocks to avoid including nested page content
+    const filteredBlocks = mdBlocks.filter(block => {
+      // Keep all blocks except child_page type
+      return block.type !== 'child_page';
+    });
+
     // Convert blocks to markdown string
-    const mdString = n2m.toMarkdownString(mdBlocks);
+    const mdString = n2m.toMarkdownString(filteredBlocks);
 
     // Process content and download images
     let content = await processMarkdownContent(mdString, pageId);
