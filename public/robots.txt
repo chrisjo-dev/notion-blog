@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yourusername.github.io/notion-blog/sitemap-index.xml
+Sitemap: https://chrisjo-dev.github.io/notion-blog/sitemap-index.xml
