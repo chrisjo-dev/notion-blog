@@ -10,7 +10,7 @@
     "sync": "node scripts/notion-sync.js"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.1.3",
     "unist-util-visit": "^5.0.0"
   },
