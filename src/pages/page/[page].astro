@@ -3,9 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import CategorySidebar from '../../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
 
-const POSTS_PER_PAGE = 20;
-
 export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 20;
   const allPostsRaw = await getCollection('posts');
 
   // Filter out category pages
