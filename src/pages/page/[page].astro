@@ -1,26 +1,44 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import CategorySidebar from '../components/CategorySidebar.astro';
+import Layout from '../../layouts/Layout.astro';
+import CategorySidebar from '../../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
 
 const POSTS_PER_PAGE = 20;
-const allPostsRaw = await getCollection('posts');
 
-// Filter out category pages (posts without category field are category pages)
-const allPosts = allPostsRaw
-  .filter(post => {
-    // Include only posts that have a category (actual content, not category pages)
-    return post.data.category !== undefined && post.data.category !== null;
-  })
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+export async function getStaticPaths() {
+  const allPostsRaw = await getCollection('posts');
 
-// For now, show first page
-const posts = allPosts.slice(0, POSTS_PER_PAGE);
-const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  // Filter out category pages
+  const allPosts = allPostsRaw
+    .filter(post => {
+      return post.data.category !== undefined && post.data.category !== null;
+    })
+    .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    const start = i * POSTS_PER_PAGE;
+    const end = start + POSTS_PER_PAGE;
+
+    return {
+      params: { page: String(pageNum) },
+      props: {
+        posts: allPosts.slice(start, end),
+        currentPage: pageNum,
+        totalPages,
+        totalPosts: allPosts.length,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, totalPages, totalPosts } = Astro.props;
 ---
 
 <Layout
-  title="Blog"
+  title={`Blog - Page ${currentPage}`}
   description="Welcome to my personal blog powered by Notion and GitHub Pages"
 >
   <div class="container">
@@ -39,7 +57,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
       <section class="posts-section">
       <div class="section-header">
         <h2>Latest Posts</h2>
-        <p class="post-count">{allPosts.length} {allPosts.length === 1 ? 'post' : 'posts'}</p>
+        <p class="post-count">{totalPosts} {totalPosts === 1 ? 'post' : 'posts'}</p>
       </div>
 
       {posts.length === 0 ? (
@@ -86,9 +104,21 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
       <!-- Pagination -->
       {totalPages > 1 && (
         <div class="pagination">
-          <a class="pagination-btn disabled" aria-disabled="true">Previous</a>
-          <span class="page-info">Page 1 of {totalPages}</span>
-          <a href="/notion-blog/page/2/" class="pagination-btn">Next</a>
+          <a
+            href={currentPage > 1 ? (currentPage === 2 ? '/notion-blog/' : `/notion-blog/page/${currentPage - 1}/`) : '#'}
+            class:list={['pagination-btn', { disabled: currentPage === 1 }]}
+            aria-disabled={currentPage === 1}
+          >
+            Previous
+          </a>
+          <span class="page-info">Page {currentPage} of {totalPages}</span>
+          <a
+            href={currentPage < totalPages ? `/notion-blog/page/${currentPage + 1}/` : '#'}
+            class:list={['pagination-btn', { disabled: currentPage === totalPages }]}
+            aria-disabled={currentPage === totalPages}
+          >
+            Next
+          </a>
         </div>
       )}
       </section>
