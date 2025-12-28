@@ -249,7 +249,7 @@ async function convertPageToMarkdown(pageInfo) {
   const { page, parent, parentTitle, hierarchy, tags, level } = pageInfo;
   const pageId = page.id.replace(/-/g, '');
   const title = getPageTitle(page);
-  const lastEditedTime = page.last_edited_time;
+  const createdTime = page.created_time;
   const slug = generateUniqueSlug(title);
 
   const categoryInfo = parentTitle ? ` [${parentTitle}]` : '';
@@ -281,7 +281,7 @@ async function convertPageToMarkdown(pageInfo) {
     const frontmatterData = {
       title: title.replace(/"/g, '\\"'),
       description: description.replace(/"/g, '\\"'),
-      date: lastEditedTime,
+      date: createdTime,
       notionId: pageId,
     };
 
