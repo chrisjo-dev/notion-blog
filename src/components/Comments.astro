@@ -57,13 +57,13 @@ const { className = '' } = Astro.props;
     repo: 'chrisjo-dev/notion-blog',
     repoId: 'R_kgDOQodyqQ',
     category: 'General',
-    categoryId: 'DIC_kwDOQodyqc4CltX8', // General category
-    mapping: 'pathname', // How comments are mapped to pages
+    categoryId: 'DIC_kwDOQodyqc4C0ToC',
+    mapping: 'pathname',
     strict: '0',
     reactionsEnabled: '1',
     emitMetadata: '0',
-    inputPosition: 'top', // or 'bottom'
-    lang: 'ko', // or 'en', 'zh-CN', etc.
+    inputPosition: 'bottom',
+    lang: 'ko',
   };
 
   function loadGiscus() {
@@ -72,8 +72,8 @@ const { className = '' } = Astro.props;
 
     // Get current theme
     const theme = document.documentElement.getAttribute('data-theme') === 'dark'
-      ? 'dark'
-      : 'light';
+      ? 'dark_protanopia'
+      : 'light_protanopia';
 
     // Create script element
     const script = document.createElement('script');
@@ -121,8 +121,8 @@ const { className = '' } = Astro.props;
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
           const theme = document.documentElement.getAttribute('data-theme') === 'dark'
-            ? 'dark'
-            : 'light';
+            ? 'dark_protanopia'
+            : 'light_protanopia';
           updateGiscusTheme(theme);
         }
       });
