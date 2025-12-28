@@ -4,7 +4,15 @@ import CategorySidebar from '../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
 
 const POSTS_PER_PAGE = 20;
-const allPosts = (await getCollection('posts'))
+const allPostsRaw = await getCollection('posts');
+
+// Filter out category pages (level 0 or 1 without substantial content)
+const allPosts = allPostsRaw
+  .filter(post => {
+    const level = post.data.level ?? 999;
+    // Include posts that are level 2+ OR have a category (child posts)
+    return level >= 2 || post.data.category;
+  })
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 // For now, show first page

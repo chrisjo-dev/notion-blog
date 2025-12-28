@@ -4,9 +4,17 @@ import { getCollection } from 'astro:content';
 // Get all posts and extract categories
 const allPosts = await getCollection('posts');
 
+// Filter out category pages (level 0 or 1 without substantial content)
+// Only include actual blog posts (level 2 or higher, or has category)
+const actualPosts = allPosts.filter(post => {
+  const level = post.data.level ?? 999;
+  // Include posts that are level 2+ OR have a category (child posts)
+  return level >= 2 || post.data.category;
+});
+
 // Count posts per category
 const categoryCount = new Map<string, number>();
-allPosts.forEach(post => {
+actualPosts.forEach(post => {
   if (post.data.category) {
     const count = categoryCount.get(post.data.category) || 0;
     categoryCount.set(post.data.category, count + 1);
@@ -18,7 +26,7 @@ const categories = Array.from(categoryCount.entries())
   .map(([name, count]) => ({ name, count }))
   .sort((a, b) => b.count - a.count);
 
-const totalPosts = allPosts.length;
+const totalPosts = actualPosts.length;
 const currentPath = Astro.url.pathname;
 ---
 

@@ -3,7 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 // Get all posts and group by year and month
-const allPosts = await getCollection('posts');
+const allPostsRaw = await getCollection('posts');
+
+// Filter out category pages
+const allPosts = allPostsRaw.filter(post => {
+  const level = post.data.level ?? 999;
+  return level >= 2 || post.data.category;
+});
+
 const sortedPosts = allPosts.sort((a, b) =>
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
