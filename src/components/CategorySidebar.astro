@@ -4,12 +4,11 @@ import { getCollection } from 'astro:content';
 // Get all posts and extract categories
 const allPosts = await getCollection('posts');
 
-// Filter out category pages (level 0 or 1 without substantial content)
-// Only include actual blog posts (level 2 or higher, or has category)
+// Filter out category pages (level 0 without category field)
+// Only include actual blog posts (posts with a category field)
 const actualPosts = allPosts.filter(post => {
-  const level = post.data.level ?? 999;
-  // Include posts that are level 2+ OR have a category (child posts)
-  return level >= 2 || post.data.category;
+  // Include only posts that have a category (actual content, not category pages)
+  return post.data.category !== undefined && post.data.category !== null;
 });
 
 // Count posts per category

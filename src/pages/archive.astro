@@ -5,10 +5,9 @@ import { getCollection } from 'astro:content';
 // Get all posts and group by year and month
 const allPostsRaw = await getCollection('posts');
 
-// Filter out category pages
+// Filter out category pages (posts without category field)
 const allPosts = allPostsRaw.filter(post => {
-  const level = post.data.level ?? 999;
-  return level >= 2 || post.data.category;
+  return post.data.category !== undefined && post.data.category !== null;
 });
 
 const sortedPosts = allPosts.sort((a, b) =>

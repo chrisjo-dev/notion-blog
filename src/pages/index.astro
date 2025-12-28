@@ -6,12 +6,11 @@ import { getCollection } from 'astro:content';
 const POSTS_PER_PAGE = 20;
 const allPostsRaw = await getCollection('posts');
 
-// Filter out category pages (level 0 or 1 without substantial content)
+// Filter out category pages (posts without category field are category pages)
 const allPosts = allPostsRaw
   .filter(post => {
-    const level = post.data.level ?? 999;
-    // Include posts that are level 2+ OR have a category (child posts)
-    return level >= 2 || post.data.category;
+    // Include only posts that have a category (actual content, not category pages)
+    return post.data.category !== undefined && post.data.category !== null;
   })
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 

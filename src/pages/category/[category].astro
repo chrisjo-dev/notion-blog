@@ -6,10 +6,9 @@ import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const allPostsRaw = await getCollection('posts');
 
-  // Filter out category pages
+  // Filter out category pages (posts without category field)
   const allPosts = allPostsRaw.filter(post => {
-    const level = post.data.level ?? 999;
-    return level >= 2 || post.data.category;
+    return post.data.category !== undefined && post.data.category !== null;
   });
 
   // Get unique categories
@@ -39,10 +38,9 @@ export async function getStaticPaths() {
 const { category } = Astro.props;
 const allPostsRaw = await getCollection('posts');
 
-// Filter out category pages
+// Filter out category pages (posts without category field)
 const allPosts = allPostsRaw.filter(post => {
-  const level = post.data.level ?? 999;
-  return level >= 2 || post.data.category;
+  return post.data.category !== undefined && post.data.category !== null;
 });
 
 // Filter posts by category
