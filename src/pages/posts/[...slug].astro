@@ -17,7 +17,13 @@ const { Content } = await post.render();
 // Get all posts for related posts feature
 const allPosts = await getCollection('posts');
 const relatedPosts = allPosts
-  .filter(p => p.slug !== post.slug)
+  .filter(p => {
+    // Exclude current post
+    if (p.slug === post.slug) return false;
+    // Exclude category pages (posts without category field)
+    if (!p.data.category) return false;
+    return true;
+  })
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 ---
