@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Comments from '../../components/Comments.astro';
+import { getThumbnail, getCategorySlug } from '../../utils/post';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -13,6 +14,17 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const thumbnail = getThumbnail(post.body);
+
+// Build breadcrumbs with direct category only (not full hierarchy ancestors)
+// Hierarchy ancestors may not have generated category pages, producing 404 URLs.
+const breadcrumbs = [
+  { name: 'Home', url: '/notion-blog/' },
+  ...(post.data.category
+    ? [{ name: post.data.category, url: `/notion-blog/category/${getCategorySlug(post.data.category)}/` }]
+    : []),
+  { name: post.data.title, url: `/notion-blog/posts/${post.slug}/` }
+];
 
 // Get all posts for related posts feature
 const allPosts = await getCollection('posts');
@@ -31,10 +43,13 @@ const relatedPosts = allPosts
 <Layout
   title={post.data.title}
   description={post.data.description}
+  ogImage={thumbnail || undefined}
+  keywords={post.data.tags}
+  breadcrumbs={breadcrumbs}
   article={{
     publishedTime: post.data.date,
     modifiedTime: post.data.date,
-    author: 'Your Name',
+    author: 'Chris',
   }}
 >
   <article class="article-container">
@@ -44,16 +59,9 @@ const relatedPosts = allPosts
         <a href="/notion-blog/" class="breadcrumb-link">Home</a>
         <span class="breadcrumb-separator">/</span>
         {post.data.hierarchy.slice(0, -1).map((item, index) => {
-          // Generate category slug for intermediate levels
-          const categorySlug = item
-            .toLowerCase()
-            .replace(/\//g, '-')
-            .replace(/\s+/g, '-')
-            .replace(/[^\w\-가-힣]/g, '');
-
           return (
             <>
-              <a href={`/notion-blog/category/${categorySlug}/`} class="breadcrumb-link">{item}</a>
+              <a href={`/notion-blog/category/${getCategorySlug(item)}/`} class="breadcrumb-link">{item}</a>
               <span class="breadcrumb-separator">/</span>
             </>
           );
@@ -76,11 +84,7 @@ const relatedPosts = allPosts
         {post.data.category && (
           <>
             <span class="meta-separator">•</span>
-            <a href={`/notion-blog/category/${post.data.category
-              .toLowerCase()
-              .replace(/\//g, '-')
-              .replace(/\s+/g, '-')
-              .replace(/[^\w\-가-힣]/g, '')}/`}
+            <a href={`/notion-blog/category/${getCategorySlug(post.data.category)}/`}
               class="category-badge">
               {post.data.category}
             </a>

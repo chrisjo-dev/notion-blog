@@ -7,6 +7,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  keywords?: string[];
+  breadcrumbs?: Array<{
+    name: string;
+    url: string;
+  }>;
   article?: {
     publishedTime: string;
     modifiedTime: string;
@@ -14,9 +20,12 @@ interface Props {
   };
 }
 
-const { title, description = '', article } = Astro.props;
+const { title, description = '', ogImage, keywords, breadcrumbs, article } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL('/notion-blog/og-image.png', Astro.site);
+// ogImage from getThumbnail() already includes /notion-blog/ prefix
+const socialImageURL = ogImage
+  ? new URL(ogImage, Astro.site)
+  : new URL('/notion-blog/og-image.png', Astro.site);
 
 // Get all posts for search
 const allPosts = await getCollection('posts');
@@ -48,6 +57,10 @@ const postsData = allPosts.map(post => ({
     <meta name="title" content={title} />
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title="Chris Blog RSS" href={new URL('/notion-blog/rss.xml', Astro.site).toString()} />
+
+    <!-- Naver Search Advisor -->
+    <meta name="naver-site-verification" content="PLACEHOLDER_NAVER_CODE" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={article ? 'article' : 'website'} />
@@ -71,7 +84,7 @@ const postsData = allPosts.map(post => ({
     {description && <meta property="twitter:description" content={description} />}
     <meta property="twitter:image" content={socialImageURL} />
 
-    <!-- JSON-LD Schema -->
+    <!-- JSON-LD Article Schema -->
     {article && (
       <script type="application/ld+json" set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -84,7 +97,31 @@ const postsData = allPosts.map(post => ({
         author: {
           '@type': 'Person',
           name: article.author
-        }
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Chris Blog',
+          url: 'https://chrisjo-dev.github.io/notion-blog/'
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': canonicalURL.toString()
+        },
+        ...(keywords && keywords.length > 0 ? { keywords } : {})
+      })} />
+    )}
+
+    <!-- JSON-LD BreadcrumbList Schema -->
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.name,
+          item: new URL(crumb.url, Astro.site).toString()
+        }))
       })} />
     )}
 
