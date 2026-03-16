@@ -1,0 +1,222 @@
+{
+  "2d6ea3deaa2b80ec8f44c1b718f382c4": {
+    "lastEdited": "2026-03-16T02:39:00.000Z",
+    "slug": "끄적끄적",
+    "fileName": "끄적끄적.md"
+  },
+  "2d6ea3deaa2b80628843e4b051dd1fbd": {
+    "lastEdited": "2025-12-27T12:33:00.000Z",
+    "slug": "iterm2-플러그인-추천",
+    "fileName": "iterm2-플러그인-추천.md"
+  },
+  "2d6ea3deaa2b806185cade3c570369a1": {
+    "lastEdited": "2025-12-27T12:34:00.000Z",
+    "slug": "tmux",
+    "fileName": "tmux.md"
+  },
+  "2d6ea3deaa2b8059b287c3abe224f67f": {
+    "lastEdited": "2025-12-27T12:35:00.000Z",
+    "slug": "sbom-software-bill-of-materials-이란",
+    "fileName": "sbom-software-bill-of-materials-이란.md"
+  },
+  "2d6ea3deaa2b80c6ad88cd70af8553c3": {
+    "lastEdited": "2025-12-27T12:45:00.000Z",
+    "slug": "jenv-java-version들을-관리하기-위한-툴",
+    "fileName": "jenv-java-version들을-관리하기-위한-툴.md"
+  },
+  "325ea3deaa2b80b89c40e4a5256f57b7": {
+    "lastEdited": "2026-03-16T05:32:00.000Z",
+    "slug": "50살이-되서야-억만장자가-깨달은-것-차마스-팔리하피티야chamath-palihapitiya",
+    "fileName": "50살이-되서야-억만장자가-깨달은-것-차마스-팔리하피티야chamath-palihapitiya.md"
+  },
+  "2d6ea3deaa2b8058a64ec0d11e24c0ec": {
+    "lastEdited": "2026-01-05T05:29:00.000Z",
+    "slug": "iaas",
+    "fileName": "iaas.md"
+  },
+  "2d6ea3deaa2b81f9afecdee4642fccf4": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "kubernetes-기본-개념",
+    "fileName": "kubernetes-기본-개념.md"
+  },
+  "2d6ea3deaa2b8138b713d54585f055b3": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "kubernetes-시뮬레이션",
+    "fileName": "kubernetes-시뮬레이션.md"
+  },
+  "2d6ea3deaa2b81c9acb3c282d151d8fb": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "forward-proxy-reverse-proxy-서버-정리",
+    "fileName": "forward-proxy-reverse-proxy-서버-정리.md"
+  },
+  "2d6ea3deaa2b8137ae42d2ed6904404a": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "프록시-서버의-단점-및-한계",
+    "fileName": "프록시-서버의-단점-및-한계.md"
+  },
+  "2d6ea3deaa2b8122b68bf701c16feff3": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "ha-proxy란",
+    "fileName": "ha-proxy란.md"
+  },
+  "2d6ea3deaa2b812282ede55cb879884c": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "edgeingressapp-gateway-계층-구조-정리",
+    "fileName": "edgeingressapp-gateway-계층-구조-정리.md"
+  },
+  "2d6ea3deaa2b81bb84dccbbbe29e186f": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "hypervisor하이퍼바이저란",
+    "fileName": "hypervisor하이퍼바이저란.md"
+  },
+  "2d6ea3deaa2b81748c96f99fae7c82c8": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "모니터링-프로그램-정리",
+    "fileName": "모니터링-프로그램-정리.md"
+  },
+  "2d6ea3deaa2b814fb668c5b7b993f333": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "노드-아키텍처-용어-3가지-관점-워크로드-예시",
+    "fileName": "노드-아키텍처-용어-3가지-관점-워크로드-예시.md"
+  },
+  "2d6ea3deaa2b81cbbc99dd1e7a19a9b6": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "쿠버네티스의-기본-핵심",
+    "fileName": "쿠버네티스의-기본-핵심.md"
+  },
+  "2d6ea3deaa2b81cabea8fc8655a38f09": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "롤링-업데이트-롤-아웃-롤-백",
+    "fileName": "롤링-업데이트-롤-아웃-롤-백.md"
+  },
+  "2d6ea3deaa2b810fb062e0b2eb7df274": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "사이드카",
+    "fileName": "사이드카.md"
+  },
+  "2d6ea3deaa2b81c7b0dce617bd9df455": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "로드밸런싱-기초부터-octavia-vs-haproxy-까지-한-번에-정리",
+    "fileName": "로드밸런싱-기초부터-octavia-vs-haproxy-까지-한-번에-정리.md"
+  },
+  "2d6ea3deaa2b8177a826cb7570e163d4": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "cilium이란",
+    "fileName": "cilium이란.md"
+  },
+  "2d6ea3deaa2b813084a8d836a37a5abd": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "스토리지-기초부터-openstack-cinder와-kubernetes-pvpvc-관계-정리",
+    "fileName": "스토리지-기초부터-openstack-cinder와-kubernetes-pvpvc-관계-정리.md"
+  },
+  "2d6ea3deaa2b81e29fc2e3d680c54997": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "컨테이너-런타임-cri란",
+    "fileName": "컨테이너-런타임-cri란.md"
+  },
+  "2d6ea3deaa2b819bb1d2fc143aa3808e": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "kubernetes의-구성-요소",
+    "fileName": "kubernetes의-구성-요소.md"
+  },
+  "2d6ea3deaa2b81ae9b24c13db9c68516": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "kubernetes-아웃바운드-트래픽-플로우",
+    "fileName": "kubernetes-아웃바운드-트래픽-플로우.md"
+  },
+  "2d6ea3deaa2b810b98cdf1528ecd3e87": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "kubernetes-인바운드-트래픽-플로우",
+    "fileName": "kubernetes-인바운드-트래픽-플로우.md"
+  },
+  "2d6ea3deaa2b80399d64ccb88444b6f5": {
+    "lastEdited": "2025-12-27T12:08:00.000Z",
+    "slug": "on-premises",
+    "fileName": "on-premises.md"
+  },
+  "2d6ea3deaa2b81f2a7fbf52a3a486fb0": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "san-스위치",
+    "fileName": "san-스위치.md"
+  },
+  "2d6ea3deaa2b814ba7d8ef7b6bb30c4c": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "tor-스위치-rack",
+    "fileName": "tor-스위치-rack.md"
+  },
+  "2d6ea3deaa2b81ae8661c4c4a44ee4a5": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "cisco-c9500-tor-스위치-lan-스위치",
+    "fileName": "cisco-c9500-tor-스위치-lan-스위치.md"
+  },
+  "2d6ea3deaa2b81b5bae8c38f05f38f79": {
+    "lastEdited": "2025-12-27T10:58:00.000Z",
+    "slug": "ceph-powerstore-둘다-쓰는가",
+    "fileName": "ceph-powerstore-둘다-쓰는가.md"
+  },
+  "2d6ea3deaa2b80428e88d6577a5d76ef": {
+    "lastEdited": "2025-12-27T12:46:00.000Z",
+    "slug": "paas",
+    "fileName": "paas.md"
+  },
+  "2d6ea3deaa2b806482ced087bc181f33": {
+    "lastEdited": "2025-12-27T12:32:00.000Z",
+    "slug": "loadbalancer",
+    "fileName": "loadbalancer.md"
+  },
+  "2d6ea3deaa2b819cb7bbdf27bc4cef21": {
+    "lastEdited": "2025-12-27T12:33:00.000Z",
+    "slug": "gitops-정리",
+    "fileName": "gitops-정리.md"
+  },
+  "2d6ea3deaa2b80f692c2d7f7f963e92a": {
+    "lastEdited": "2025-12-27T12:36:00.000Z",
+    "slug": "jenkins-에이전트-실행-시-서버-다운-사후-분석-보고서",
+    "fileName": "jenkins-에이전트-실행-시-서버-다운-사후-분석-보고서.md"
+  },
+  "2d6ea3deaa2b80eaa0e8ff55f8d780e0": {
+    "lastEdited": "2025-12-27T12:37:00.000Z",
+    "slug": "jenkins-파이프라인-체계-수립-논의점들",
+    "fileName": "jenkins-파이프라인-체계-수립-논의점들.md"
+  },
+  "2d6ea3deaa2b806aad74ebdcd6b1737d": {
+    "lastEdited": "2025-12-27T12:39:00.000Z",
+    "slug": "sonarqube-설치-및-jenkins-연동-매뉴얼",
+    "fileName": "sonarqube-설치-및-jenkins-연동-매뉴얼.md"
+  },
+  "2d6ea3deaa2b80739237c1e45ac7ba9c": {
+    "lastEdited": "2025-12-27T12:41:00.000Z",
+    "slug": "sonarqube-도입-시행착오-및-문제점-보고서",
+    "fileName": "sonarqube-도입-시행착오-및-문제점-보고서.md"
+  },
+  "2d6ea3deaa2b80f5879afca80c82ff1a": {
+    "lastEdited": "2025-12-27T12:42:00.000Z",
+    "slug": "jenkins-plugins-추천",
+    "fileName": "jenkins-plugins-추천.md"
+  },
+  "2d6ea3deaa2b8030a47fe5f97ab4eac0": {
+    "lastEdited": "2025-12-27T12:43:00.000Z",
+    "slug": "gitops-repo-전략",
+    "fileName": "gitops-repo-전략.md"
+  },
+  "2d6ea3deaa2b80f2b548c2b53e7f60fa": {
+    "lastEdited": "2025-12-27T12:44:00.000Z",
+    "slug": "minikube-harbor-이미지-pull-트러블슈팅-매뉴얼-macos-환경",
+    "fileName": "minikube-harbor-이미지-pull-트러블슈팅-매뉴얼-macos-환경.md"
+  },
+  "2d6ea3deaa2b801b9399d78a5fcc45a1": {
+    "lastEdited": "2025-12-27T12:46:00.000Z",
+    "slug": "미니쿠베-인터넷-차단-매뉴얼-calico-globalnetworkpolicy-사용",
+    "fileName": "미니쿠베-인터넷-차단-매뉴얼-calico-globalnetworkpolicy-사용.md"
+  },
+  "2d7ea3deaa2b80778353e3ba423c5c8e": {
+    "lastEdited": "2026-01-02T07:11:00.000Z",
+    "slug": "커리어",
+    "fileName": "커리어.md"
+  },
+  "2d7ea3deaa2b80708f2addab99c0921f": {
+    "lastEdited": "2025-12-28T12:10:00.000Z",
+    "slug": "이력서에-수치만-나열-하셨나요",
+    "fileName": "이력서에-수치만-나열-하셨나요.md"
+  }
+}

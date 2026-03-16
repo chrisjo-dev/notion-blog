@@ -1,6 +1,6 @@
 ---
 title: "50살이 되서야 억만장자가 깨달은 것 - 차마스 팔리하피티야(Chamath Palihapitiya) "
-description: "페이스북에서 부사장으로 일했던 차마스 팔리하피티야의 인터뷰 영상을 보게 되었다. 거기서 얻은 인사이트가 꽤 강렬했기에, 이 글을 통해 정리하고 공유하고자 한다. 그가 말한 원칙은 다음과 같다. 이 열 가지 원칙은 서로 맥락이 겹치는 부분도 있다. 끊임없이 배워라, 과정..."
+description: "bookmark 페이스북에서 부사장으로 일했던 차마스 팔리하피티야의 인터뷰 영상을 보게 되었다. 거기서 얻은 인사이트가 꽤 강렬했기에, 이 글을 통해 정리하고 공유하고자 한다. 그가 말한 원칙은 다음과 같다. 이 열 가지 원칙은 서로 맥락이 겹치는 부분도 있다. 끊임없..."
 date: "2026-03-16T02:39:00.000Z"
 notionId: "325ea3deaa2b80b89c40e4a5256f57b7"
 category: "끄적끄적"
@@ -12,6 +12,12 @@ hierarchy:
 parent: "2d6ea3deaa2b80ec8f44c1b718f382c4"
 level: 1
 ---
+
+
+![image.png](/notion-blog/images/notion/325ea3deaa2b80b89c40e4a5256f57b7/image-1.png)
+
+
+[bookmark](https://www.youtube.com/watch?v=YEzALU9tWBg)
 
 
 페이스북에서 부사장으로 일했던 차마스 팔리하피티야의 인터뷰 영상을 보게 되었다. 거기서 얻은 인사이트가 꽤 강렬했기에, 이 글을 통해 정리하고 공유하고자 한다.
