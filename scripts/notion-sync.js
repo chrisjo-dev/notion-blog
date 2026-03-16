@@ -42,6 +42,21 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 // Paths
 const CONTENT_DIR = path.join(__dirname, '..', 'src', 'content', 'posts');
 const IMAGES_DIR = path.join(__dirname, '..', 'public', 'images', 'notion');
+const CACHE_FILE = path.join(__dirname, '..', '.notion-sync-cache.json');
+
+// Cache: { [notionId]: { lastEdited, slug, fileName } }
+async function loadCache() {
+  try {
+    const data = await fs.readFile(CACHE_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return {};
+  }
+}
+
+async function saveCache(cache) {
+  await fs.writeFile(CACHE_FILE, JSON.stringify(cache, null, 2), 'utf-8');
+}
 
 // Slug generation with collision handling
 const slugCache = new Map();
@@ -69,19 +84,27 @@ function generateUniqueSlug(title) {
   return `${baseSlug}-${count}`;
 }
 
-// Download image and return local path
+// Download image and return local path (skip if already exists)
 async function downloadImage(url, pageId, imageName) {
   const ext = path.extname(new URL(url).pathname) || '.png';
   const fileName = `${imageName}${ext}`;
   const pageDir = path.join(IMAGES_DIR, pageId);
   const filePath = path.join(pageDir, fileName);
+  const localPath = `/notion-blog/images/notion/${pageId}/${fileName}`;
+
+  // Skip if image already exists
+  try {
+    await fs.access(filePath);
+    return localPath;
+  } catch {
+    // File doesn't exist, proceed with download
+  }
 
   await fs.mkdir(pageDir, { recursive: true });
 
   return new Promise((resolve, reject) => {
     https.get(url, (response) => {
       if (response.statusCode === 302 || response.statusCode === 301) {
-        // Follow redirect
         downloadImage(response.headers.location, pageId, imageName)
           .then(resolve)
           .catch(reject);
@@ -93,8 +116,7 @@ async function downloadImage(url, pageId, imageName) {
 
       fileStream.on('finish', () => {
         fileStream.close();
-        // Return path relative to public directory
-        resolve(`/notion-blog/images/notion/${pageId}/${fileName}`);
+        resolve(localPath);
       });
 
       fileStream.on('error', (err) => {
@@ -144,14 +166,13 @@ async function processMarkdownContent(mdString, pageId) {
 
 // Extract description from markdown content
 function extractDescription(markdown, maxLength = 150) {
-  // Remove markdown syntax
   const plainText = markdown
-    .replace(/#{1,6}\s+/g, '') // Headers
-    .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '') // Images
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Links
-    .replace(/`{1,3}[^`]*`{1,3}/g, '') // Code
-    .replace(/[*_~]/g, '') // Bold, italic, strikethrough
-    .replace(/\n+/g, ' ') // Newlines
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '')
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    .replace(/`{1,3}[^`]*`{1,3}/g, '')
+    .replace(/[*_~]/g, '')
+    .replace(/\n+/g, ' ')
     .trim();
 
   if (plainText.length <= maxLength) {
@@ -188,11 +209,9 @@ async function fetchChildPages(blockId, parentInfo = null, level = 0) {
 
     for (const block of response.results) {
       if (block.type === 'child_page') {
-        // Fetch the full page object to get properties
         const page = await notion.pages.retrieve({ page_id: block.id });
         const pageTitle = getPageTitle(page);
 
-        // Build hierarchy information
         const hierarchy = parentInfo ? [...parentInfo.hierarchy, pageTitle] : [pageTitle];
         const tags = parentInfo ? [...parentInfo.tags] : [];
 
@@ -207,10 +226,8 @@ async function fetchChildPages(blockId, parentInfo = null, level = 0) {
           title: pageTitle,
         };
 
-        // Add this page to results
         allPages.push(pageInfo);
 
-        // Recursively fetch children of this page
         const childPages = await fetchChildPages(page.id, pageInfo, level + 1);
         allPages.push(...childPages);
       }
@@ -229,7 +246,6 @@ async function fetchPages() {
     console.log('Fetching pages recursively from root page...');
     const pagesInfo = await fetchChildPages(NOTION_ROOT_PAGE_ID);
 
-    // Log hierarchy information
     console.log('\nPage hierarchy:');
     pagesInfo.forEach(info => {
       const indent = '  '.repeat(info.level);
@@ -256,28 +272,20 @@ async function convertPageToMarkdown(pageInfo) {
   console.log(`Processing: ${title}${categoryInfo}`);
 
   try {
-    // Get markdown blocks (only direct children, not nested child_page blocks)
     const mdBlocks = await n2m.pageToMarkdown(page.id);
 
-    // Filter out child_page blocks to avoid including nested page content
     const filteredBlocks = mdBlocks.filter(block => {
-      // Keep all blocks except child_page type
       return block.type !== 'child_page';
     });
 
-    // Convert blocks to markdown string
     const mdString = n2m.toMarkdownString(filteredBlocks);
 
-    // Process content and download images
     let content = await processMarkdownContent(mdString, pageId);
 
-    // Extract description
     const description = extractDescription(content);
 
-    // Build tags array (all parent categories)
     const allTags = hierarchy.length > 1 ? hierarchy.slice(0, -1) : [];
 
-    // Create frontmatter with hierarchy metadata
     const frontmatterData = {
       title: title.replace(/"/g, '\\"'),
       description: description.replace(/"/g, '\\"'),
@@ -285,7 +293,6 @@ async function convertPageToMarkdown(pageInfo) {
       notionId: pageId,
     };
 
-    // Add hierarchy metadata
     if (parentTitle) {
       frontmatterData.category = parentTitle.replace(/"/g, '\\"');
     }
@@ -304,7 +311,6 @@ async function convertPageToMarkdown(pageInfo) {
 
     frontmatterData.level = level;
 
-    // Build frontmatter string
     let frontmatter = '---\n';
     frontmatter += `title: "${frontmatterData.title}"\n`;
     frontmatter += `description: "${frontmatterData.description}"\n`;
@@ -336,32 +342,18 @@ async function convertPageToMarkdown(pageInfo) {
     frontmatter += `level: ${frontmatterData.level}\n`;
     frontmatter += `---\n\n`;
 
-    // Combine frontmatter and content
     const fullContent = frontmatter + content;
 
-    // Write to file
     const fileName = `${slug}.md`;
     const filePath = path.join(CONTENT_DIR, fileName);
     await fs.writeFile(filePath, fullContent, 'utf-8');
 
     console.log(`  ✓ Saved: ${fileName}`);
 
-    return { slug, fileName };
+    return { slug, fileName, notionId: pageId };
   } catch (error) {
     console.error(`  ✗ Failed to process "${title}":`, error.message);
     return null;
-  }
-}
-
-// Check if there are any changes
-async function hasChanges() {
-  try {
-    const { execSync } = await import('child_process');
-    const status = execSync('git status --porcelain', { encoding: 'utf-8' });
-    return status.trim().length > 0;
-  } catch (error) {
-    // If git command fails, assume there are changes
-    return true;
   }
 }
 
@@ -370,42 +362,85 @@ async function syncNotion() {
   console.log('Starting Notion sync...\n');
 
   try {
-    // Create directories
     await fs.mkdir(CONTENT_DIR, { recursive: true });
     await fs.mkdir(IMAGES_DIR, { recursive: true });
 
-    // Clear existing content
-    const existingFiles = await fs.readdir(CONTENT_DIR);
-    for (const file of existingFiles) {
-      if (file.endsWith('.md')) {
-        await fs.unlink(path.join(CONTENT_DIR, file));
-      }
-    }
-    console.log('Cleared existing content\n');
+    // Load cache
+    const cache = await loadCache();
+    console.log(`Cache loaded: ${Object.keys(cache).length} entries\n`);
 
-    // Fetch and process pages (returns array of pageInfo objects)
+    // Fetch all page metadata
     const pagesInfo = await fetchPages();
     console.log(`\nFound ${pagesInfo.length} total pages\n`);
 
-    const results = [];
+    // Determine which pages need processing
+    const currentNotionIds = new Set();
+    const toProcess = [];
+    const toSkip = [];
+
     for (const pageInfo of pagesInfo) {
-      const result = await convertPageToMarkdown(pageInfo);
-      if (result) {
-        results.push(result);
+      const notionId = pageInfo.page.id.replace(/-/g, '');
+      const lastEdited = pageInfo.page.last_edited_time;
+      currentNotionIds.add(notionId);
+
+      const cached = cache[notionId];
+      if (cached && cached.lastEdited === lastEdited) {
+        // Page unchanged — register slug to avoid collisions
+        generateUniqueSlug(pageInfo.title);
+        toSkip.push(pageInfo);
+      } else {
+        toProcess.push(pageInfo);
       }
     }
 
-    console.log(`\n✓ Successfully processed ${results.length} pages`);
+    console.log(`Changed: ${toProcess.length}, Unchanged: ${toSkip.length}\n`);
 
-    // Check for changes
-    const changed = await hasChanges();
-    if (changed) {
-      console.log('✓ Changes detected');
-    } else {
-      console.log('✓ No changes detected');
+    // Delete files for pages removed from Notion
+    const removedIds = Object.keys(cache).filter(id => !currentNotionIds.has(id));
+    for (const id of removedIds) {
+      const cached = cache[id];
+      if (cached?.fileName) {
+        const filePath = path.join(CONTENT_DIR, cached.fileName);
+        try {
+          await fs.unlink(filePath);
+          console.log(`  ✗ Removed: ${cached.fileName} (deleted from Notion)`);
+        } catch {
+          // File already gone
+        }
+      }
+      // Clean up image directory
+      const imgDir = path.join(IMAGES_DIR, id);
+      try {
+        await fs.rm(imgDir, { recursive: true });
+      } catch {
+        // Directory already gone
+      }
+      delete cache[id];
     }
 
-    return changed;
+    // Process only changed pages
+    const results = [];
+    for (const pageInfo of toProcess) {
+      const result = await convertPageToMarkdown(pageInfo);
+      if (result) {
+        results.push(result);
+        // Update cache
+        const notionId = pageInfo.page.id.replace(/-/g, '');
+        cache[notionId] = {
+          lastEdited: pageInfo.page.last_edited_time,
+          slug: result.slug,
+          fileName: result.fileName,
+        };
+      }
+    }
+
+    // Save updated cache
+    await saveCache(cache);
+
+    console.log(`\n✓ Processed ${results.length} changed pages, skipped ${toSkip.length} unchanged`);
+    if (removedIds.length > 0) {
+      console.log(`✓ Removed ${removedIds.length} deleted pages`);
+    }
   } catch (error) {
     console.error('Sync failed:', error);
     throw error;
@@ -414,7 +449,7 @@ async function syncNotion() {
 
 // Run sync
 syncNotion()
-  .then((changed) => {
+  .then(() => {
     process.exit(0);
   })
   .catch((error) => {
