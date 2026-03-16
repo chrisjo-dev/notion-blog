@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import CategorySidebar from '../../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
+import { getThumbnail } from '../../utils/post';
 
 export async function getStaticPaths() {
   const allPostsRaw = await getCollection('posts');
@@ -47,6 +48,7 @@ const allPosts = allPostsRaw.filter(post => {
 const posts = allPosts
   .filter(post => post.data.category === category)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
 ---
 
 <Layout
@@ -79,12 +81,14 @@ const posts = allPosts
           </div>
         ) : (
           <div class="posts-grid">
-            {posts.map((post) => (
+            {posts.map((post) => {
+              const thumbnail = getThumbnail(post.body);
+              return (
               <article class="post-card">
                 <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
-                  {post.data.thumbnail && (
+                  {thumbnail && (
                     <div class="card-thumbnail">
-                      <img src={post.data.thumbnail} alt={post.data.title} loading="lazy" />
+                      <img src={thumbnail} alt={post.data.title} loading="lazy" />
                     </div>
                   )}
                   <div class="card-content">
@@ -113,7 +117,8 @@ const posts = allPosts
                   </div>
                 </a>
               </article>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>
