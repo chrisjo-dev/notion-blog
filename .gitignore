@@ -61,9 +61,7 @@ lerna-debug.log*
 # Astro
 .astro/
 
-# Notion synced content (generated files)
-src/content/posts/*.md
-public/images/notion/
+# Notion synced content (tracked for build efficiency)
 
 # Temporary files
 *.tmp
