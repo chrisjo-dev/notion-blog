@@ -1,14 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { isBlogPost } from '../utils/post';
 
 // Get all posts and group by year and month
 const allPostsRaw = await getCollection('posts');
 
 // Filter out category pages (posts without category field)
-const allPosts = allPostsRaw.filter(post => {
-  return post.data.category !== undefined && post.data.category !== null;
-});
+const allPosts = allPostsRaw.filter(isBlogPost);
 
 const sortedPosts = allPosts.sort((a, b) =>
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()

@@ -43,7 +43,7 @@ const relatedPosts = allPosts
 <Layout
   title={post.data.title}
   description={post.data.description}
-  ogImage={thumbnail || undefined}
+  ogImage={thumbnail ?? undefined}
   keywords={post.data.tags}
   breadcrumbs={breadcrumbs}
   article={{

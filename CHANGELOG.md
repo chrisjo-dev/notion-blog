@@ -13,6 +13,7 @@
 
 ### 변경
 - `getCategorySlug()` 유틸리티 추출 — 4곳에 중복되던 슬러그 로직을 `src/utils/post.ts`로 통합
+- `isBlogPost()` 유틸리티 추출 — 7곳에 중복되던 포스트 필터 로직을 `src/utils/post.ts`로 통합
 - `getThumbnail()` null-safe 처리 (body가 undefined인 카테고리 페이지 대응)
 - 게시글 author를 `'Your Name'`에서 `'Chris'`로 수정
 
@@ -21,9 +22,12 @@
 |------|------|
 | `package.json` | `@astrojs/rss` 의존성 추가 |
 | `public/og-image.png` | 기본 OG 이미지 생성 |
-| `src/utils/post.ts` | `getCategorySlug()` 추가, `getThumbnail()` null-safe |
+| `src/utils/post.ts` | `getCategorySlug()`, `isBlogPost()` 추가, `getThumbnail()` null-safe |
 | `src/layouts/Layout.astro` | Props 확장, 동적 og:image, Naver 메타, RSS 링크, JSON-LD 개선 |
-| `src/pages/posts/[...slug].astro` | ogImage/keywords/breadcrumbs 전달, author 수정, 공유 슬러그 유틸 사용 |
-| `src/pages/category/[category].astro` | breadcrumbs 전달, 공유 슬러그 유틸 사용 |
-| `src/components/CategorySidebar.astro` | 공유 슬러그 유틸 사용 |
+| `src/pages/posts/[...slug].astro` | ogImage/keywords/breadcrumbs 전달, author 수정, 공유 유틸 사용 |
+| `src/pages/category/[category].astro` | breadcrumbs 전달, 공유 유틸 사용 |
+| `src/pages/index.astro` | `isBlogPost` 유틸 사용 |
+| `src/pages/page/[page].astro` | `isBlogPost` 유틸 사용 |
+| `src/pages/archive.astro` | `isBlogPost` 유틸 사용 |
+| `src/components/CategorySidebar.astro` | 공유 유틸 사용 |
 | `src/pages/rss.xml.ts` | RSS 피드 엔드포인트 신규 생성 |

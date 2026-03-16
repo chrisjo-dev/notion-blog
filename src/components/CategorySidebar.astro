@@ -1,16 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import { getCategorySlug } from '../utils/post';
+import { getCategorySlug, isBlogPost } from '../utils/post';
 
 // Get all posts and extract categories
 const allPosts = await getCollection('posts');
 
-// Filter out category pages (level 0 without category field)
-// Only include actual blog posts (posts with a category field)
-const actualPosts = allPosts.filter(post => {
-  // Include only posts that have a category (actual content, not category pages)
-  return post.data.category !== undefined && post.data.category !== null;
-});
+const actualPosts = allPosts.filter(isBlogPost);
 
 // Count posts per category
 const categoryCount = new Map<string, number>();

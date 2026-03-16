@@ -6,6 +6,10 @@ export function getThumbnail(body: string | undefined): string | null {
   return match ? match[1] : null;
 }
 
+export function isBlogPost(post: { data: { category?: string | null } }): boolean {
+  return post.data.category != null;
+}
+
 export function getCategorySlug(category: string): string {
   return category
     .toLowerCase()

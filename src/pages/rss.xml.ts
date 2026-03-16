@@ -1,11 +1,12 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
+import { isBlogPost } from '../utils/post';
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('posts');
   const blogPosts = posts
-    .filter(post => post.data.category !== undefined && post.data.category !== null)
+    .filter(isBlogPost)
     .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
   return rss({

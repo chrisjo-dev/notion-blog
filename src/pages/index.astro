@@ -2,17 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import CategorySidebar from '../components/CategorySidebar.astro';
 import { getCollection } from 'astro:content';
-import { getThumbnail } from '../utils/post';
+import { getThumbnail, isBlogPost } from '../utils/post';
 
 const POSTS_PER_PAGE = 20;
 const allPostsRaw = await getCollection('posts');
 
-// Filter out category pages (posts without category field are category pages)
 const allPosts = allPostsRaw
-  .filter(post => {
-    // Include only posts that have a category (actual content, not category pages)
-    return post.data.category !== undefined && post.data.category !== null;
-  })
+  .filter(isBlogPost)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 // For now, show first page
