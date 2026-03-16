@@ -130,7 +130,13 @@ const posts = allPosts
   .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-xl) var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: var(--space-xl) var(--space-md);
+    }
   }
 
   /* Category Header */
