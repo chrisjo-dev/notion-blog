@@ -51,6 +51,11 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
           {posts.map((post) => (
             <article class="post-card">
               <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
+                {post.data.thumbnail && (
+                  <div class="card-thumbnail">
+                    <img src={post.data.thumbnail} alt={post.data.title} loading="lazy" />
+                  </div>
+                )}
                 <div class="card-content">
                   <div class="card-meta">
                     <time datetime={post.data.date} class="card-date">
@@ -225,6 +230,23 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
     color: inherit;
     display: block;
     height: 100%;
+  }
+
+  .card-thumbnail {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .post-card:hover .card-thumbnail img {
+    transform: scale(1.05);
   }
 
   .card-content {

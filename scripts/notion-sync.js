@@ -284,6 +284,10 @@ async function convertPageToMarkdown(pageInfo) {
 
     const description = extractDescription(content);
 
+    // Extract first image as thumbnail
+    const thumbnailMatch = content.match(/!\[[^\]]*\]\(([^\)]+)\)/);
+    const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null;
+
     const allTags = hierarchy.length > 1 ? hierarchy.slice(0, -1) : [];
 
     const frontmatterData = {
@@ -292,6 +296,10 @@ async function convertPageToMarkdown(pageInfo) {
       date: createdTime,
       notionId: pageId,
     };
+
+    if (thumbnail) {
+      frontmatterData.thumbnail = thumbnail;
+    }
 
     if (parentTitle) {
       frontmatterData.category = parentTitle.replace(/"/g, '\\"');
@@ -316,6 +324,10 @@ async function convertPageToMarkdown(pageInfo) {
     frontmatter += `description: "${frontmatterData.description}"\n`;
     frontmatter += `date: "${frontmatterData.date}"\n`;
     frontmatter += `notionId: "${frontmatterData.notionId}"\n`;
+
+    if (frontmatterData.thumbnail) {
+      frontmatter += `thumbnail: "${frontmatterData.thumbnail}"\n`;
+    }
 
     if (frontmatterData.category) {
       frontmatter += `category: "${frontmatterData.category}"\n`;
