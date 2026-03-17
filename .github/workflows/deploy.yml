@@ -53,6 +53,24 @@ jobs:
             git push
           fi
 
+      - name: Translate to English
+        id: translate
+        env:
+          OPENCLAW_API_KEY: ${{ secrets.OPENCLAW_API_KEY }}
+        run: npm run translate
+        continue-on-error: true
+
+      - name: Commit translated content
+        if: steps.translate.outcome == 'success'
+        run: |
+          git add src/content/posts-en/ .translation-cache.json
+          if git diff --cached --quiet; then
+            echo "No translation changes"
+          else
+            git commit -m "chore: translate content to English [skip ci]"
+            git push
+          fi
+
       - name: Build site
         run: npm run build
 

@@ -10,6 +10,24 @@ export function isBlogPost(post: { data: { category?: string | null } }): boolea
   return post.data.category != null;
 }
 
+export function formatDate(date: string, lang: 'ko' | 'en' = 'ko'): string {
+  const d = new Date(date);
+  return d.toLocaleDateString(lang === 'en' ? 'en-US' : 'ko-KR', {
+    year: 'numeric',
+    month: lang === 'en' ? 'short' : 'long',
+    day: 'numeric',
+  });
+}
+
+export function sanitizeEnglishSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-{2,}/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 export function getCategorySlug(category: string): string {
   return category
     .toLowerCase()

@@ -1,25 +1,33 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
+interface Props {
+  lang?: 'ko' | 'en';
+}
+
+const { lang = 'ko' } = Astro.props;
 const currentPath = Astro.url.pathname;
+const base = lang === 'en' ? '/notion-blog/en/' : '/notion-blog/';
 ---
 
 <nav class="nav-wrapper">
   <div class="nav-container">
     <div class="nav-content">
       <!-- Logo / Brand -->
-      <a href="/notion-blog/" class="logo">
+      <a href={base} class="logo">
         <span class="logo-text">Blog</span>
       </a>
 
       <!-- Desktop Navigation -->
       <div class="nav-links">
-        <a href="/notion-blog/" class:list={['nav-link', { active: currentPath === '/notion-blog/' }]}>
+        <a href={base} class:list={['nav-link', { active: currentPath === base }]}>
           Home
         </a>
-        <a href="/notion-blog/archive/" class:list={['nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
-          Archive
-        </a>
+        {lang === 'ko' && (
+          <a href="/notion-blog/archive/" class:list={['nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
+            Archive
+          </a>
+        )}
       </div>
 
       <!-- Right side: Search + Theme Toggle -->
@@ -45,12 +53,14 @@ const currentPath = Astro.url.pathname;
 
     <!-- Mobile Navigation -->
     <div id="mobile-menu" class="mobile-menu hidden">
-      <a href="/notion-blog/" class:list={['mobile-nav-link', { active: currentPath === '/notion-blog/' }]}>
+      <a href={base} class:list={['mobile-nav-link', { active: currentPath === base }]}>
         Home
       </a>
-      <a href="/notion-blog/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
-        Archive
-      </a>
+      {lang === 'ko' && (
+        <a href="/notion-blog/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
+          Archive
+        </a>
+      )}
     </div>
   </div>
 </nav>

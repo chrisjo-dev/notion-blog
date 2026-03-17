@@ -1,0 +1,212 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import { getThumbnail } from '../../../utils/post';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts-en');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const thumbnail = getThumbnail(post.body);
+
+// Build hreflang URL to Korean version
+const hrefLangKo = `https://chrisjo-dev.github.io/notion-blog/posts/${post.data.koreanSlug}/`;
+
+// Get related English posts
+const allPosts = await getCollection('posts-en');
+const relatedPosts = allPosts
+  .filter(p => {
+    if (p.slug === post.slug) return false;
+    if (!p.data.category) return false;
+    return true;
+  })
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={thumbnail || undefined}
+  lang="en"
+  hrefLangAlternate={hrefLangKo}
+  article={{
+    publishedTime: post.data.date,
+    modifiedTime: post.data.date,
+    author: 'Chris',
+  }}
+>
+  <article class="article-container">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+      <a href="/notion-blog/en/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">{post.data.title}</span>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="post-header">
+      <h1 class="post-title">{post.data.title}</h1>
+      <div class="post-meta">
+        <time datetime={post.data.date} class="post-date">
+          {new Date(post.data.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+      </div>
+    </header>
+
+    <!-- Article Content -->
+    <div class="post-content">
+      <Content />
+    </div>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <aside class="related-posts">
+        <h2 class="related-title">Related Posts</h2>
+        <div class="related-grid">
+          {relatedPosts.map((relatedPost) => (
+            <a href={`/notion-blog/en/posts/${relatedPost.slug}/`} class="related-card">
+              <h3 class="related-card-title">{relatedPost.data.title}</h3>
+              {relatedPost.data.description && (
+                <p class="related-card-description">{relatedPost.data.description}</p>
+              )}
+              <time class="related-card-date">
+                {new Date(relatedPost.data.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+            </a>
+          ))}
+        </div>
+      </aside>
+    )}
+  </article>
+</Layout>
+
+<style>
+  .article-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+  }
+
+  .breadcrumb-link {
+    color: var(--color-accent-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--color-text-tertiary);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .post-header {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .post-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--color-text-secondary);
+  }
+
+  .post-date {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .post-content {
+    line-height: 1.8;
+    color: var(--color-text-primary);
+    font-size: 1.0625rem;
+  }
+
+  .post-content :global(h2) { font-size: 1.875rem; font-weight: 700; margin-top: var(--space-2xl); margin-bottom: var(--space-md); line-height: 1.3; }
+  .post-content :global(h3) { font-size: 1.5rem; font-weight: 600; margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+  .post-content :global(p) { margin-bottom: var(--space-md); }
+  .post-content :global(a) { color: var(--color-accent-primary); text-decoration: underline; }
+  .post-content :global(code) { background-color: var(--color-code-bg); color: var(--color-code-text); padding: 0.2em 0.4em; border-radius: var(--radius-sm); font-size: 0.9em; font-family: 'SF Mono', Monaco, Consolas, monospace; }
+  .post-content :global(pre) { background-color: var(--color-pre-bg); padding: var(--space-lg); border-radius: var(--radius-md); overflow-x: auto; margin: var(--space-lg) 0; border: 1px solid var(--color-border); }
+  .post-content :global(pre code) { background: transparent; padding: 0; color: var(--color-pre-text); font-size: 0.9rem; }
+  .post-content :global(img) { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: var(--space-xl) 0; box-shadow: var(--shadow-md); }
+  .post-content :global(ul), .post-content :global(ol) { margin: var(--space-md) 0; padding-left: var(--space-xl); }
+  .post-content :global(li) { margin-bottom: var(--space-sm); }
+  .post-content :global(blockquote) { border-left: 4px solid var(--color-accent-primary); padding: var(--space-md) var(--space-lg); margin: var(--space-lg) 0; color: var(--color-text-secondary); font-style: italic; background-color: var(--color-bg-secondary); border-radius: var(--radius-sm); }
+
+  .related-posts {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 2px solid var(--color-border);
+  }
+
+  .related-title { font-size: 1.5rem; font-weight: 700; margin-bottom: var(--space-xl); }
+
+  .related-grid { display: grid; gap: var(--space-lg); }
+  @media (min-width: 768px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .related-card {
+    display: flex; flex-direction: column; gap: var(--space-sm);
+    padding: var(--space-lg); border: 1px solid var(--color-border);
+    border-radius: var(--radius-md); text-decoration: none; color: inherit;
+    transition: all var(--transition-base);
+  }
+  .related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--color-accent-primary); }
+  .related-card-title { font-size: 1rem; font-weight: 600; color: var(--color-text-primary); line-height: 1.4; }
+  .related-card:hover .related-card-title { color: var(--color-accent-primary); }
+  .related-card-description { font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.5; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .related-card-date { font-size: 0.8125rem; color: var(--color-text-tertiary); margin-top: auto; }
+
+  @media (max-width: 768px) {
+    .post-title { font-size: 2rem; }
+    .post-content { font-size: 1rem; }
+  }
+</style>

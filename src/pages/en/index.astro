@@ -1,0 +1,165 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getThumbnail } from '../../utils/post';
+
+const allPosts = (await getCollection('posts-en'))
+  .filter(post => post.data.category != null)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<Layout
+  title="Chris's Cloud Blog (English)"
+  description="Tech blog powered by Notion & Astro — English edition"
+  lang="en"
+>
+  <div class="container">
+    <section class="hero">
+      <h1 class="hero-title">Chris's Cloud Blog</h1>
+      <p class="hero-description">Thoughts, stories and ideas — in English</p>
+    </section>
+
+    <section class="posts-section">
+      <div class="section-header">
+        <h2>Latest Posts</h2>
+        <p class="post-count">{allPosts.length} {allPosts.length === 1 ? 'post' : 'posts'}</p>
+      </div>
+
+      {allPosts.length === 0 ? (
+        <div class="empty-state">
+          <p>No translated posts yet. Check back soon!</p>
+        </div>
+      ) : (
+        <div class="posts-grid">
+          {allPosts.map((post) => {
+            const thumbnail = getThumbnail(post.body);
+            return (
+            <article class="post-card">
+              <a href={`/notion-blog/en/posts/${post.slug}/`} class="card-link">
+                {thumbnail && (
+                  <div class="card-thumbnail">
+                    <img src={thumbnail} alt={post.data.title} loading="lazy" />
+                  </div>
+                )}
+                <div class="card-content">
+                  <div class="card-meta">
+                    <time datetime={post.data.date} class="card-date">
+                      {new Date(post.data.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </time>
+                  </div>
+                  <h3 class="card-title">{post.data.title}</h3>
+                  {post.data.description && (
+                    <p class="card-description">{post.data.description}</p>
+                  )}
+                  <div class="card-footer">
+                    <span class="read-more">
+                      Read more
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: var(--space-xl) var(--space-md); }
+  }
+
+  .hero {
+    text-align: center;
+    padding: var(--space-2xl) 0;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .posts-section { margin-top: var(--space-2xl); }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .section-header h2 { font-size: 1.75rem; font-weight: 700; }
+  .post-count { color: var(--color-text-tertiary); font-size: 0.9rem; }
+
+  .empty-state { text-align: center; padding: var(--space-2xl); color: var(--color-text-secondary); }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) { .posts-grid { grid-template-columns: 1fr; } }
+
+  .post-card {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    height: 100%;
+  }
+
+  .post-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--color-accent-primary); }
+
+  .card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
+  .card-thumbnail { width: 100%; height: 180px; overflow: hidden; }
+  .card-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-base); }
+  .post-card:hover .card-thumbnail img { transform: scale(1.05); }
+
+  .card-content { padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); height: 100%; }
+  .card-meta { display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap; }
+  .card-date { font-size: 0.85rem; color: var(--color-text-tertiary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-title { font-size: 1.5rem; font-weight: 700; line-height: 1.3; color: var(--color-text-primary); transition: color var(--transition-fast); }
+  .post-card:hover .card-title { color: var(--color-accent-primary); }
+
+  .card-description { color: var(--color-text-secondary); line-height: 1.6; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-footer { margin-top: auto; padding-top: var(--space-md); }
+
+  .read-more { display: inline-flex; align-items: center; gap: var(--space-sm); color: var(--color-accent-primary); font-weight: 600; font-size: 0.9rem; transition: gap var(--transition-fast); }
+  .post-card:hover .read-more { gap: var(--space-md); }
+  .read-more svg { width: 18px; height: 18px; }
+</style>

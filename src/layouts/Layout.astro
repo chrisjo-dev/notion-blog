@@ -13,6 +13,8 @@ interface Props {
     name: string;
     url: string;
   }>;
+  lang?: 'ko' | 'en';
+  hrefLangAlternate?: string;
   article?: {
     publishedTime: string;
     modifiedTime: string;
@@ -20,26 +22,31 @@ interface Props {
   };
 }
 
-const { title, description = '', ogImage, keywords, breadcrumbs, article } = Astro.props;
+const { title, description = '', ogImage, keywords, breadcrumbs, lang = 'ko', hrefLangAlternate, article } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // ogImage from getThumbnail() already includes /notion-blog/ prefix
 const socialImageURL = ogImage
   ? new URL(ogImage, Astro.site)
   : new URL('/notion-blog/og-image.png', Astro.site);
+const rssUrl = lang === 'en'
+  ? new URL('/notion-blog/en/rss.xml', Astro.site).toString()
+  : new URL('/notion-blog/rss.xml', Astro.site).toString();
 
-// Get all posts for search
-const allPosts = await getCollection('posts');
+// Get posts for search (language-appropriate collection)
+const allPosts = await getCollection(lang === 'en' ? 'posts-en' : 'posts');
+const postUrlPrefix = lang === 'en' ? '/notion-blog/en/posts/' : '/notion-blog/posts/';
 const postsData = allPosts.map(post => ({
   title: post.data.title,
   description: post.data.description || '',
   date: post.data.date,
   category: post.data.category || '',
   slug: post.slug,
+  urlPrefix: postUrlPrefix,
 }));
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,10 +64,19 @@ const postsData = allPosts.map(post => ({
     <meta name="title" content={title} />
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" type="application/rss+xml" title="Chris Blog RSS" href={new URL('/notion-blog/rss.xml', Astro.site).toString()} />
+    <link rel="alternate" type="application/rss+xml" title={lang === 'en' ? 'Chris Blog RSS (EN)' : 'Chris Blog RSS'} href={rssUrl} />
 
-    <!-- Naver Search Advisor -->
-    <meta name="naver-site-verification" content="PLACEHOLDER_NAVER_CODE" />
+    <!-- Naver Search Advisor (Korean only) -->
+    {lang === 'ko' && <meta name="naver-site-verification" content="PLACEHOLDER_NAVER_CODE" />}
+
+    <!-- hreflang tags -->
+    {hrefLangAlternate && (
+      <>
+        <link rel="alternate" hreflang={lang === 'en' ? 'ko' : 'en'} href={hrefLangAlternate} />
+        <link rel="alternate" hreflang={lang} href={canonicalURL} />
+        <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+      </>
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={article ? 'article' : 'website'} />
@@ -129,7 +145,7 @@ const postsData = allPosts.map(post => ({
     <script data-goatcounter="https://chrisjo-blog.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </head>
   <body>
-    <Navigation />
+    <Navigation lang={lang} />
     <Search />
     <main class="main-content">
       <slot />

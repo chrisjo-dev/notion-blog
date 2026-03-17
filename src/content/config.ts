@@ -16,4 +16,20 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const postsEn = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    date: z.string(),
+    notionId: z.string(),
+    koreanSlug: z.string(),
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    hierarchy: z.array(z.string()).optional(),
+    parent: z.string().optional(),
+    level: z.number().optional(),
+  }),
+});
+
+export const collections = { posts, 'posts-en': postsEn };

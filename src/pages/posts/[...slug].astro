@@ -26,6 +26,13 @@ const breadcrumbs = [
   { name: post.data.title, url: `/notion-blog/posts/${post.slug}/` }
 ];
 
+// Look up English counterpart for hreflang
+const postsEn = await getCollection('posts-en');
+const englishPost = postsEn.find(e => e.data.notionId === post.data.notionId);
+const hrefLangEn = englishPost
+  ? `https://chrisjo-dev.github.io/notion-blog/en/posts/${englishPost.slug}/`
+  : undefined;
+
 // Get all posts for related posts feature
 const allPosts = await getCollection('posts');
 const relatedPosts = allPosts
@@ -46,6 +53,7 @@ const relatedPosts = allPosts
   ogImage={thumbnail ?? undefined}
   keywords={post.data.tags}
   breadcrumbs={breadcrumbs}
+  hrefLangAlternate={hrefLangEn}
   article={{
     publishedTime: post.data.date,
     modifiedTime: post.data.date,
