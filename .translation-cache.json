@@ -208,5 +208,29 @@
     "koreanSlug": "프록시-서버의-단점-및-한계",
     "englishSlug": "disadvantages-and-limitations-of-proxy-servers",
     "englishTitle": "Disadvantages and Limitations of Proxy Servers"
+  },
+  "325ea3deaa2b80b89c40e4a5256f57b7": {
+    "contentHash": "1c2acf361dc30f37",
+    "koreanSlug": "50살이-되서야-억만장자가-깨달은-것-차마스-팔리하피티야chamath-palihapitiya",
+    "englishSlug": "what-a-billionaire-only-realized-at-50-chamath-palihapitiya",
+    "englishTitle": "What a Billionaire Only Realized at 50 — Chamath Palihapitiya"
+  },
+  "2d6ea3deaa2b81ae8661c4c4a44ee4a5": {
+    "contentHash": "321fdefd685ec557",
+    "koreanSlug": "cisco-c9500-tor-스위치-lan-스위치",
+    "englishSlug": "cisco-c9500-tor-switch-lan-switch",
+    "englishTitle": "Cisco C9500, ToR Switch = LAN Switch"
+  },
+  "2d6ea3deaa2b814fb668c5b7b993f333": {
+    "contentHash": "a789e5890bd6e5b2",
+    "koreanSlug": "노드-아키텍처-용어-3가지-관점-워크로드-예시",
+    "englishSlug": "node-architecture-terminology-3-perspectives-workload-examples",
+    "englishTitle": "Node Architecture Terminology – 3 Perspectives + Workload Examples"
+  },
+  "2d6ea3deaa2b81748c96f99fae7c82c8": {
+    "contentHash": "595d475d6a569bc8",
+    "koreanSlug": "모니터링-프로그램-정리",
+    "englishSlug": "monitoring-tools-overview",
+    "englishTitle": "Monitoring Tools Overview"
   }
 }
