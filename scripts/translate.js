@@ -24,7 +24,7 @@ try {
 }
 
 const OPENCLAW_API_KEY = process.env.OPENCLAW_API_KEY;
-const OPENCLAW_API_URL = process.env.OPENCLAW_API_URL || 'https://api.openclaw.io';
+const OPENCLAW_API_URL = process.env.OPENCLAW_API_URL || 'https://api.openclaw.io/v1/chat/completions';
 const OPENCLAW_MODEL = process.env.OPENCLAW_MODEL || 'gpt-4o-mini';
 const DRY_RUN = process.argv.includes('--dry-run');
 
@@ -210,7 +210,7 @@ Description: ${description || ''}
 ---
 ${proseBody}`;
 
-  const response = await fetch(`${OPENCLAW_API_URL}/v1/chat/completions`, {
+  const response = await fetch(OPENCLAW_API_URL, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${OPENCLAW_API_KEY}`,
