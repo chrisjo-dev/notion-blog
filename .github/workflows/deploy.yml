@@ -57,6 +57,8 @@ jobs:
         id: translate
         env:
           OPENCLAW_API_KEY: ${{ secrets.OPENCLAW_API_KEY }}
+          OPENCLAW_API_URL: ${{ secrets.OPENCLAW_API_URL }}
+          OPENCLAW_MODEL: ${{ secrets.OPENCLAW_MODEL }}
         run: npm run translate
         continue-on-error: true
 
