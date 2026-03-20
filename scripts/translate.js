@@ -130,20 +130,6 @@ function extractPlaceholders(markdown) {
   const placeholders = [];
   let processed = markdown;
 
-  // Extract fenced code blocks first (``` ... ```)
-  processed = processed.replace(/```[\s\S]*?```/g, (match) => {
-    const idx = placeholders.length;
-    placeholders.push(match);
-    return `__CODE_BLOCK_${idx}__`;
-  });
-
-  // Extract inline code (` ... `)
-  processed = processed.replace(/`[^`\n]+`/g, (match) => {
-    const idx = placeholders.length;
-    placeholders.push(match);
-    return `__INLINE_CODE_${idx}__`;
-  });
-
   // Extract image markdown ![alt](url)
   processed = processed.replace(/!\[[^\]]*\]\([^)]+\)/g, (match) => {
     const idx = placeholders.length;
@@ -201,8 +187,9 @@ async function translatePost(title, description, proseBody) {
 Translate the following Korean blog post to natural, fluent English.
 Preserve all technical terms accurately. Maintain the original markdown structure (headings, lists, bold, etc.).
 Return ONLY a JSON object with this exact format: {"title": "...", "description": "...", "body": "..."}
-The body contains placeholder tokens like __CODE_BLOCK_0__, __IMAGE_1__, __INLINE_CODE_2__, __LINK_3__ etc.
+The body contains placeholder tokens like __IMAGE_0__, __LINK_1__ etc.
 Do NOT translate or modify these placeholders. Keep them exactly as-is in their original positions.
+For code blocks (``` ... ```), translate any Korean comments or Korean text inside them, but preserve the code structure and syntax.
 Do NOT wrap the response in markdown code fences.`;
 
   const userMessage = `Title: ${title}
