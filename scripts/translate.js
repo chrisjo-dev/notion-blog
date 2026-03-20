@@ -125,7 +125,7 @@ function parseMarkdown(content) {
   return { frontmatter: fm, body };
 }
 
-// Markdown preservation: extract code blocks, images, URLs into placeholders
+// Markdown preservation: extract images and URLs into placeholders
 function extractPlaceholders(markdown) {
   const placeholders = [];
   let processed = markdown;
@@ -152,8 +152,6 @@ function restorePlaceholders(translated, placeholders) {
   let result = translated;
   for (let i = 0; i < placeholders.length; i++) {
     const patterns = [
-      `__CODE_BLOCK_${i}__`,
-      `__INLINE_CODE_${i}__`,
       `__IMAGE_${i}__`,
       `__LINK_${i}__`,
     ];
@@ -171,7 +169,7 @@ function restorePlaceholders(translated, placeholders) {
 function validateRestoration(original, restored, placeholders) {
   const missing = [];
   for (let i = 0; i < placeholders.length; i++) {
-    const patterns = [`__CODE_BLOCK_${i}__`, `__INLINE_CODE_${i}__`, `__IMAGE_${i}__`, `__LINK_${i}__`];
+    const patterns = [`__IMAGE_${i}__`, `__LINK_${i}__`];
     for (const pattern of patterns) {
       if (restored.includes(pattern)) {
         missing.push(pattern);
