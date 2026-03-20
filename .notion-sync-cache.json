@@ -30,7 +30,7 @@
     "fileName": "50살이-되서야-억만장자가-깨달은-것-차마스-팔리하피티야chamath-palihapitiya.md"
   },
   "2d6ea3deaa2b8058a64ec0d11e24c0ec": {
-    "lastEdited": "2026-01-05T05:29:00.000Z",
+    "lastEdited": "2026-03-20T08:01:00.000Z",
     "slug": "iaas",
     "fileName": "iaas.md"
   },
@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2025-12-27T12:46:00.000Z",
+    "lastEdited": "2026-03-20T08:01:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -218,5 +218,20 @@
     "lastEdited": "2025-12-28T12:10:00.000Z",
     "slug": "이력서에-수치만-나열-하셨나요",
     "fileName": "이력서에-수치만-나열-하셨나요.md"
+  },
+  "329ea3deaa2b8061b767cee74e688c1a": {
+    "lastEdited": "2026-03-20T08:01:00.000Z",
+    "slug": "컨테이너와-vm-살펴보기",
+    "fileName": "컨테이너와-vm-살펴보기.md"
+  },
+  "329ea3deaa2b8030886decb6dfc7b809": {
+    "lastEdited": "2026-03-20T08:20:00.000Z",
+    "slug": "ai",
+    "fileName": "ai.md"
+  },
+  "329ea3deaa2b80b5aa94f551d66ce619": {
+    "lastEdited": "2026-03-20T08:24:00.000Z",
+    "slug": "postmortem-claude가-simplify-훅을-스스로-우회한-사례",
+    "fileName": "postmortem-claude가-simplify-훅을-스스로-우회한-사례.md"
   }
 }
