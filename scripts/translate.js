@@ -187,7 +187,7 @@ Preserve all technical terms accurately. Maintain the original markdown structur
 Return ONLY a JSON object with this exact format: {"title": "...", "description": "...", "body": "..."}
 The body contains placeholder tokens like __IMAGE_0__, __LINK_1__ etc.
 Do NOT translate or modify these placeholders. Keep them exactly as-is in their original positions.
-For code blocks (``` ... ```), translate any Korean comments or Korean text inside them, but preserve the code structure and syntax.
+For fenced code blocks, translate any Korean comments or Korean text inside them, but preserve the code structure and syntax.
 Do NOT wrap the response in markdown code fences.`;
 
   const userMessage = `Title: ${title}
