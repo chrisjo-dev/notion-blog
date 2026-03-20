@@ -232,5 +232,11 @@
     "koreanSlug": "모니터링-프로그램-정리",
     "englishSlug": "monitoring-tools-overview",
     "englishTitle": "Monitoring Tools Overview"
+  },
+  "329ea3deaa2b8061b767cee74e688c1a": {
+    "contentHash": "85cd05c86bdce9cb",
+    "koreanSlug": "컨테이너와-vm-살펴보기",
+    "englishSlug": "exploring-containers-and-vms",
+    "englishTitle": "Exploring Containers and VMs"
   }
 }
