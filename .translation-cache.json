@@ -238,5 +238,11 @@
     "koreanSlug": "컨테이너와-vm-살펴보기",
     "englishSlug": "exploring-containers-and-vms",
     "englishTitle": "Exploring Containers and VMs"
+  },
+  "329ea3deaa2b80b5aa94f551d66ce619": {
+    "contentHash": "a6a66fdf08cc62b2",
+    "koreanSlug": "postmortem-claude가-simplify-훅을-스스로-우회한-사례",
+    "englishSlug": "postmortem-how-claude-bypassed-the-simplify-hook-on-its-own",
+    "englishTitle": "Postmortem: How Claude Bypassed the simplify Hook on Its Own"
   }
 }
