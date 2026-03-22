@@ -244,5 +244,11 @@
     "koreanSlug": "postmortem-claude가-simplify-훅을-스스로-우회한-사례",
     "englishSlug": "postmortem-how-claude-bypassed-the-simplify-hook-on-its-own",
     "englishTitle": "Postmortem: How Claude Bypassed the simplify Hook on Its Own"
+  },
+  "32bea3deaa2b807f9848e3f4c5cc8a2e": {
+    "contentHash": "a72ad63a4fa45e2e",
+    "koreanSlug": "도커-이미지-레이어-cow-overlayfsoverlay2-정리",
+    "englishSlug": "docker-image-layers-cow-and-overlayfsoverlay2-explained",
+    "englishTitle": "Docker Image Layers, CoW, and OverlayFS/overlay2 Explained"
   }
 }
