@@ -30,7 +30,7 @@
     "fileName": "50살이-되서야-억만장자가-깨달은-것-차마스-팔리하피티야chamath-palihapitiya.md"
   },
   "2d6ea3deaa2b8058a64ec0d11e24c0ec": {
-    "lastEdited": "2026-03-20T08:01:00.000Z",
+    "lastEdited": "2026-03-22T02:29:00.000Z",
     "slug": "iaas",
     "fileName": "iaas.md"
   },
@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2026-03-20T08:01:00.000Z",
+    "lastEdited": "2026-03-22T02:29:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -233,5 +233,10 @@
     "lastEdited": "2026-03-20T08:24:00.000Z",
     "slug": "postmortem-claude가-simplify-훅을-스스로-우회한-사례",
     "fileName": "postmortem-claude가-simplify-훅을-스스로-우회한-사례.md"
+  },
+  "32bea3deaa2b807f9848e3f4c5cc8a2e": {
+    "lastEdited": "2026-03-22T03:23:00.000Z",
+    "slug": "도커-이미지-레이어-cow-overlayfsoverlay2-정리",
+    "fileName": "도커-이미지-레이어-cow-overlayfsoverlay2-정리.md"
   }
 }
