@@ -262,5 +262,11 @@
     "koreanSlug": "끌어당김의-법칙을-믿는다는-것-한-권의-책에서-시작된-생각의-변화",
     "englishSlug": "believing-in-the-law-of-attraction-a-shift-in-thinking-that-started-with-one-book",
     "englishTitle": "Believing in the Law of Attraction: A Shift in Thinking That Started with One Book"
+  },
+  "333ea3deaa2b80bf9cc6f305ffa376b4": {
+    "contentHash": "82cbc033a5169f92",
+    "koreanSlug": "stateless-stateful-in-kubernetes",
+    "englishSlug": "stateless-stateful-in-kubernetes",
+    "englishTitle": "Stateless & Stateful in Kubernetes"
   }
 }
