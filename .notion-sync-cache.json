@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2026-03-22T02:29:00.000Z",
+    "lastEdited": "2026-03-30T14:36:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -248,5 +248,10 @@
     "lastEdited": "2026-03-30T08:41:00.000Z",
     "slug": "ai를-사고-파트너로-활용하는-3단계-방법론",
     "fileName": "ai를-사고-파트너로-활용하는-3단계-방법론.md"
+  },
+  "333ea3deaa2b80bf9cc6f305ffa376b4": {
+    "lastEdited": "2026-03-30T14:52:00.000Z",
+    "slug": "stateless-stateful-in-kubernetes",
+    "fileName": "stateless-stateful-in-kubernetes.md"
   }
 }
