@@ -268,5 +268,17 @@
     "koreanSlug": "stateless-stateful-in-kubernetes",
     "englishSlug": "stateless-stateful-in-kubernetes",
     "englishTitle": "Stateless & Stateful in Kubernetes"
+  },
+  "335ea3deaa2b80719889dd6192165d18": {
+    "contentHash": "8e9d46f4cc220184",
+    "koreanSlug": "controller-in-kubernetes",
+    "englishSlug": "controller-in-kubernetes",
+    "englishTitle": "Controller in Kubernetes"
+  },
+  "334ea3deaa2b808991f2fb302b269dfa": {
+    "contentHash": "d5377e89c9b1f130",
+    "koreanSlug": "kubernetes-인프라-컨테이너-pause-container-개념-정리",
+    "englishSlug": "kubernetes-infrastructure-container-pause-container-concepts-explained",
+    "englishTitle": "Kubernetes Infrastructure Container (pause container) Concepts Explained"
   }
 }
