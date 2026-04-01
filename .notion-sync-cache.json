@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2026-03-30T14:36:00.000Z",
+    "lastEdited": "2026-04-01T08:32:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -253,5 +253,15 @@
     "lastEdited": "2026-03-30T14:52:00.000Z",
     "slug": "stateless-stateful-in-kubernetes",
     "fileName": "stateless-stateful-in-kubernetes.md"
+  },
+  "334ea3deaa2b808991f2fb302b269dfa": {
+    "lastEdited": "2026-04-01T08:32:00.000Z",
+    "slug": "kubernetes-인프라-컨테이너-pause-container-개념-정리",
+    "fileName": "kubernetes-인프라-컨테이너-pause-container-개념-정리.md"
+  },
+  "335ea3deaa2b80719889dd6192165d18": {
+    "lastEdited": "2026-04-01T08:32:00.000Z",
+    "slug": "controller-in-kubernetes",
+    "fileName": "controller-in-kubernetes.md"
   }
 }
