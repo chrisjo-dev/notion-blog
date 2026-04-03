@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2026-04-01T08:32:00.000Z",
+    "lastEdited": "2026-04-03T06:59:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -263,5 +263,10 @@
     "lastEdited": "2026-04-01T08:32:00.000Z",
     "slug": "controller-in-kubernetes",
     "fileName": "controller-in-kubernetes.md"
+  },
+  "337ea3deaa2b80d6a756c6459f2a56ac": {
+    "lastEdited": "2026-04-03T07:27:00.000Z",
+    "slug": "시끄러운-이웃noisy-neighbor-현상",
+    "fileName": "시끄러운-이웃noisy-neighbor-현상.md"
   }
 }
