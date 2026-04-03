@@ -280,5 +280,11 @@
     "koreanSlug": "kubernetes-인프라-컨테이너-pause-container-개념-정리",
     "englishSlug": "kubernetes-infrastructure-container-pause-container-concepts-explained",
     "englishTitle": "Kubernetes Infrastructure Container (pause container) Concepts Explained"
+  },
+  "337ea3deaa2b80d6a756c6459f2a56ac": {
+    "contentHash": "9ee2d25f962b741f",
+    "koreanSlug": "시끄러운-이웃noisy-neighbor-현상",
+    "englishSlug": "why-the-noisy-neighbor-problem-is-inevitable-in-kubernetes",
+    "englishTitle": "Why the 'Noisy Neighbor' Problem Is Inevitable in Kubernetes"
   }
 }
