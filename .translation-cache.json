@@ -286,5 +286,11 @@
     "koreanSlug": "시끄러운-이웃noisy-neighbor-현상",
     "englishSlug": "why-the-noisy-neighbor-problem-is-inevitable-in-kubernetes",
     "englishTitle": "Why the 'Noisy Neighbor' Problem Is Inevitable in Kubernetes"
+  },
+  "33dea3deaa2b80b99553eba207dc3d68": {
+    "contentHash": "e42cf20bf4c7c6a3",
+    "koreanSlug": "video-understanding-model-enablement",
+    "englishSlug": "video-understanding-model-enablement",
+    "englishTitle": "Video Understanding Model Enablement"
   }
 }
