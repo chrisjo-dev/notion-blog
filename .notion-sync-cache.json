@@ -225,7 +225,7 @@
     "fileName": "컨테이너와-vm-살펴보기.md"
   },
   "329ea3deaa2b8030886decb6dfc7b809": {
-    "lastEdited": "2026-03-20T08:20:00.000Z",
+    "lastEdited": "2026-04-09T14:18:00.000Z",
     "slug": "ai",
     "fileName": "ai.md"
   },
@@ -268,5 +268,10 @@
     "lastEdited": "2026-04-03T07:27:00.000Z",
     "slug": "시끄러운-이웃noisy-neighbor-현상",
     "fileName": "시끄러운-이웃noisy-neighbor-현상.md"
+  },
+  "33dea3deaa2b80b99553eba207dc3d68": {
+    "lastEdited": "2026-04-09T14:18:00.000Z",
+    "slug": "video-understanding-model-enablement",
+    "fileName": "video-understanding-model-enablement.md"
   }
 }
