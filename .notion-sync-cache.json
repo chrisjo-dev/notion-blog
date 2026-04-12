@@ -225,7 +225,7 @@
     "fileName": "컨테이너와-vm-살펴보기.md"
   },
   "329ea3deaa2b8030886decb6dfc7b809": {
-    "lastEdited": "2026-04-09T14:18:00.000Z",
+    "lastEdited": "2026-04-11T17:45:00.000Z",
     "slug": "ai",
     "fileName": "ai.md"
   },
@@ -273,5 +273,10 @@
     "lastEdited": "2026-04-09T14:18:00.000Z",
     "slug": "video-understanding-model-enablement",
     "fileName": "video-understanding-model-enablement.md"
+  },
+  "33fea3deaa2b808e9c3fc8e406926886": {
+    "lastEdited": "2026-04-11T18:00:00.000Z",
+    "slug": "맥북-로컬에서-돌려본-qwen3-vl-8b-양자화별-한국어-영수증-ocr-정확도속도-벤치마크",
+    "fileName": "맥북-로컬에서-돌려본-qwen3-vl-8b-양자화별-한국어-영수증-ocr-정확도속도-벤치마크.md"
   }
 }
