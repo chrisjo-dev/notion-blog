@@ -17,7 +17,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   sync-build-deploy:
@@ -50,6 +50,7 @@ jobs:
             echo "No content changes"
           else
             git commit -m "chore: sync content from Notion"
+            git pull --rebase origin main
             git push
           fi
 
@@ -70,6 +71,7 @@ jobs:
             echo "No translation changes"
           else
             git commit -m "chore: translate content to English [skip ci]"
+            git pull --rebase origin main
             git push
           fi
 
