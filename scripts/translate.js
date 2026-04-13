@@ -358,7 +358,11 @@ async function translateAll() {
     // Generate English slug
     const englishSlug = generateUniqueSlug(translated.title);
     const escapedTitle = translated.title.replace(/"/g, '\\"');
-    const escapedDesc = (translated.description || frontmatter.description || '').replace(/"/g, '\\"');
+    let rawDesc = translated.description || frontmatter.description || '';
+    // Sanitize: remove YAML delimiters, collapse to single line, cap at 200 chars
+    rawDesc = rawDesc.replace(/^---\s*/g, '').replace(/\s*---$/g, '').replace(/\n/g, ' ').trim();
+    if (rawDesc.length > 200) rawDesc = rawDesc.slice(0, 200).replace(/\s+\S*$/, '...');
+    const escapedDesc = rawDesc.replace(/"/g, '\\"');
 
     // Build frontmatter
     let fm = '---\n';

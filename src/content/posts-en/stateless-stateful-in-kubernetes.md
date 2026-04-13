@@ -1,7 +1,6 @@
 ---
 title: "Stateless & Stateful in Kubernetes"
-description: "--- 1. Starting point: How Kubernetes Works at Its Core Kubernetes is an orchestration engine. Its core mechanism is the declarative model — users declare \"this is the desired state\" in a manifest (YAML), and the system figures out how to get there. This declaration is stored via kubectl apply → API Server → etcd. This is the **desired state**. The Controller continuously compares this value against the actual **current state** and automatically reconciles any differences. This loop is called the **reconciliation loop**.
----"
+description: "Stateless and Stateful in Kubernetes - how the reconciliation loop, Deployments, and StatefulSets work at their core."
 date: "2026-03-30T14:36:00.000Z"
 notionId: "333ea3deaa2b80bf9cc6f305ffa376b4"
 koreanSlug: "stateless-stateful-in-kubernetes"
