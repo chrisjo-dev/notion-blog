@@ -225,7 +225,7 @@
     "fileName": "컨테이너와-vm-살펴보기.md"
   },
   "329ea3deaa2b8030886decb6dfc7b809": {
-    "lastEdited": "2026-04-13T09:43:00.000Z",
+    "lastEdited": "2026-04-13T11:55:00.000Z",
     "slug": "ai",
     "fileName": "ai.md"
   },
@@ -283,5 +283,10 @@
     "lastEdited": "2026-04-13T10:09:00.000Z",
     "slug": "macbook-m4에서-whisper-모델을-로컬로-돌려보자-whispercpp-설치부터-한국어-음성-변환까지",
     "fileName": "macbook-m4에서-whisper-모델을-로컬로-돌려보자-whispercpp-설치부터-한국어-음성-변환까지.md"
+  },
+  "341ea3deaa2b808a9008d7f541d418bb": {
+    "lastEdited": "2026-04-13T12:03:00.000Z",
+    "slug": "llm-서빙-엔진이란",
+    "fileName": "llm-서빙-엔진이란.md"
   }
 }
