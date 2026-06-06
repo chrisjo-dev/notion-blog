@@ -130,7 +130,7 @@
     "fileName": "kubernetes-인바운드-트래픽-플로우.md"
   },
   "2d6ea3deaa2b80399d64ccb88444b6f5": {
-    "lastEdited": "2025-12-27T12:08:00.000Z",
+    "lastEdited": "2026-06-05T12:05:00.000Z",
     "slug": "on-premises",
     "fileName": "on-premises.md"
   },
@@ -155,7 +155,7 @@
     "fileName": "ceph-powerstore-둘다-쓰는가.md"
   },
   "2d6ea3deaa2b80428e88d6577a5d76ef": {
-    "lastEdited": "2026-04-03T06:59:00.000Z",
+    "lastEdited": "2026-06-05T12:06:00.000Z",
     "slug": "paas",
     "fileName": "paas.md"
   },
@@ -288,5 +288,10 @@
     "lastEdited": "2026-04-13T12:03:00.000Z",
     "slug": "llm-서빙-엔진이란",
     "fileName": "llm-서빙-엔진이란.md"
+  },
+  "376ea3deaa2b8019a47fce7b12bb3b2f": {
+    "lastEdited": "2026-06-05T12:10:00.000Z",
+    "slug": "gitops를-운영하며-다시-생각해-본-브랜치-전략과-디렉토리-전략",
+    "fileName": "gitops를-운영하며-다시-생각해-본-브랜치-전략과-디렉토리-전략.md"
   }
 }
