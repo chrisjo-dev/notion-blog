@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="페이지를 찾을 수 없습니다 — Chris Jo 기술 블로그"
+  description="요청하신 페이지를 찾을 수 없습니다."
+>
+  <div class="container">
+    <div class="error-section">
+      <p class="error-code">404</p>
+      <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
+      <p class="error-description">요청하신 주소의 페이지가 존재하지 않거나 이동되었습니다.</p>
+      <div class="error-links">
+        <a href="/" class="btn btn-primary">블로그 홈으로</a>
+        <a href="https://www.wspace.ai.kr/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">wspace 홈으로</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-xl);
+  }
+
+  .error-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-2xl) 0;
+    min-height: 60vh;
+  }
+
+  .error-code {
+    font-size: clamp(6rem, 20vw, 10rem);
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-md);
+  }
+
+  .error-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .error-description {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 480px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .error-links {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: var(--space-sm) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent-primary);
+    color: #fff;
+    border: 1px solid var(--color-accent-primary);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-accent-primary);
+    border: 1px solid var(--color-accent-primary);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-accent-primary);
+    color: #fff;
+  }
+</style>

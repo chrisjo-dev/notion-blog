@@ -53,7 +53,6 @@ const postsData = allPosts.map(post => ({
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.ico" />
 
     <meta name="generator" content={Astro.generator} />
@@ -157,6 +156,23 @@ const postsData = allPosts.map(post => ({
     </script>
     <footer class="footer">
       <div class="footer-content">
+        <nav class="footer-nav" aria-label={lang === 'en' ? 'Footer navigation' : '푸터 내비게이션'}>
+          {lang === 'en' ? (
+            <>
+              <a href="https://www.wspace.ai.kr/" target="_blank" rel="noopener noreferrer">Home</a>
+              <a href="https://www.wspace.ai.kr/about/" target="_blank" rel="noopener noreferrer">About</a>
+              <a href="https://www.wspace.ai.kr/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a>
+              <a href="https://www.wspace.ai.kr/contact/" target="_blank" rel="noopener noreferrer">Contact</a>
+            </>
+          ) : (
+            <>
+              <a href="https://www.wspace.ai.kr/" target="_blank" rel="noopener noreferrer">wspace 홈</a>
+              <a href="https://www.wspace.ai.kr/about/" target="_blank" rel="noopener noreferrer">소개</a>
+              <a href="https://www.wspace.ai.kr/privacy/" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>
+              <a href="https://www.wspace.ai.kr/contact/" target="_blank" rel="noopener noreferrer">연락처</a>
+            </>
+          )}
+        </nav>
         <p>&copy; {new Date().getFullYear()} Chris. All rights reserved.</p>
         <p class="footer-note">Powered by <a href="https://notion.so" target="_blank" rel="noopener noreferrer">Notion</a> & <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a></p>
       </div>
@@ -264,6 +280,18 @@ const postsData = allPosts.map(post => ({
   .footer-note {
     margin-top: var(--space-sm);
     font-size: 0.85rem;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .footer-nav a {
+    font-size: 0.9rem;
   }
 
   .footer a {
