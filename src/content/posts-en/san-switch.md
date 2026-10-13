@@ -72,4 +72,4 @@ level: 1
 ```
 
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b81f2a7fbf52a3a486fb0/image-1.png)
+![image.png](/images/notion/2d6ea3deaa2b81f2a7fbf52a3a486fb0/image-1.png)

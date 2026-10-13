@@ -54,7 +54,7 @@ API Server는 이 Desired State를 etcd에 저장하지만, **실제로 Current 
 ## 3. 변화 감지 방식: Watch와 Informer
 
 
-![image.png](/notion-blog/images/notion/335ea3deaa2b80719889dd6192165d18/image-1.png)
+![image.png](/images/notion/335ea3deaa2b80719889dd6192165d18/image-1.png)
 
 
 ### 3-1. Polling vs Event-driven

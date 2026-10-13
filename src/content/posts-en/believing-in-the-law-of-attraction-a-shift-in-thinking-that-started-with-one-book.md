@@ -14,7 +14,7 @@ parent: "2d6ea3deaa2b80ec8f44c1b718f382c4"
 level: 1
 ---
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b805f97daf979e55d62c3/image-1.png)
+![image.png](/images/notion/333ea3deaa2b805f97daf979e55d62c3/image-1.png)
 
 
 I read John Assaraf's *Having It All*.

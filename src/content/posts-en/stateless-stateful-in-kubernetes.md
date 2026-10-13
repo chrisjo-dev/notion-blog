@@ -50,7 +50,7 @@ This isn't about eliminating state — it's about Separation of Concerns, handin
 ## 3. Stateless vs. Stateful: A Comparison
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-1.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-1.png)
 
 
 |                            | Stateless                              | Stateful                                          |
@@ -139,7 +139,7 @@ The desired state mentioned above is actually stored in etcd.
 ---
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-2.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-2.png)
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-3.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-3.png)

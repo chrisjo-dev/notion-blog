@@ -44,15 +44,15 @@ const posts = allPosts
   title={`${category} - Blog`}
   description={`Posts in ${category} category`}
   breadcrumbs={[
-    { name: 'Home', url: '/notion-blog/' },
-    { name: category, url: `/notion-blog/category/${getCategorySlug(category)}/` }
+    { name: 'Home', url: '/' },
+    { name: category, url: `/category/${getCategorySlug(category)}/` }
   ]}
 >
   <div class="container">
     <!-- Category Header -->
     <section class="category-header">
       <div class="breadcrumb">
-        <a href="/notion-blog/">Home</a>
+        <a href="/">Home</a>
         <span class="separator">/</span>
         <span class="current">{category}</span>
       </div>
@@ -70,7 +70,7 @@ const posts = allPosts
         {posts.length === 0 ? (
           <div class="empty-state">
             <p>No posts found in this category.</p>
-            <a href="/notion-blog/" class="back-link">← Back to all posts</a>
+            <a href="/" class="back-link">← Back to all posts</a>
           </div>
         ) : (
           <div class="posts-grid">
@@ -78,7 +78,7 @@ const posts = allPosts
               const thumbnail = getThumbnail(post.body);
               return (
               <article class="post-card">
-                <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
+                <a href={`/posts/${post.slug}/`} class="card-link">
                   {thumbnail && (
                     <div class="card-thumbnail">
                       <img src={thumbnail} alt={post.data.title} loading="lazy" />

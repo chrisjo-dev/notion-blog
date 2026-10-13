@@ -28,7 +28,7 @@ To break this chain of **cause (resource sharing) â†’ process (a runaway pod) â†
 
 # **2. Impact by Resource Type**
 
-![image.png](/notion-blog/images/notion/337ea3deaa2b80d6a756c6459f2a56ac/image-1.png)
+![image.png](/images/notion/337ea3deaa2b80d6a756c6459f2a56ac/image-1.png)
 
 The impact of a 'noisy neighbor' differs depending on the type of resource involved. Understanding this is essential for formulating the right countermeasures.
 

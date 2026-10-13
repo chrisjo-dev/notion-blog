@@ -20,7 +20,7 @@ level: 1
 ## 개념맵 - 핵심 키워드 연결
 
 
-![image.png](/notion-blog/images/notion/334ea3deaa2b808991f2fb302b269dfa/image-1.png)
+![image.png](/images/notion/334ea3deaa2b808991f2fb302b269dfa/image-1.png)
 
 
 ---

@@ -47,7 +47,7 @@ KV Cache 메모리를 OS의 virtual memory처럼 **고정 크기 page 단위**�
 **PagedAttention 기법이 필요한 이유는 내부 단편화 때문이다.**
 
 
-![image.png](/notion-blog/images/notion/341ea3deaa2b808a9008d7f541d418bb/image-1.png)
+![image.png](/images/notion/341ea3deaa2b808a9008d7f541d418bb/image-1.png)
 
 
 **4. Speculative Decoding**

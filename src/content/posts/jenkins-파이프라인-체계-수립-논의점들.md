@@ -50,17 +50,17 @@ level: 1
     Pipeline Stage UI
 
 
-        ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-1.png)
+        ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-1.png)
 
 
 # 보안 OSS (SonarQube, Trivy)
 
 1. SonarQube Quality Gate 통과 요건 기준 수립
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-2.png)
+    ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-2.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-3.png)
+    ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-3.png)
 
 
     평가 조건 설명

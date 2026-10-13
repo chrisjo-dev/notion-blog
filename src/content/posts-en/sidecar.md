@@ -65,4 +65,4 @@ Here's how it flows:
 - **Proxy**: An Envoy/Istio sidecar is attached in front of the app for security and traffic control.
 - **Sync agent**: Periodically pulls content from a Git repository and keeps it available for the app to consume immediately.
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b810fb062e0b2eb7df274/image-1.png)
+![image.png](/images/notion/2d6ea3deaa2b810fb062e0b2eb7df274/image-1.png)

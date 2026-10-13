@@ -208,7 +208,7 @@ rm temp.wav
 ## 결국 자동화를 참지 못했다
 
 
-![image.png](/notion-blog/images/notion/341ea3deaa2b80f197bef8060e63ed8a/image-1.png)
+![image.png](/images/notion/341ea3deaa2b80f197bef8060e63ed8a/image-1.png)
 
 
 문제는 실제로 쓰기 시작하면서 생겼다. 면접 연습을 녹음하고, 터미널을 열고, ffmpeg로 변환하고, whisper-cli를 돌리고, 결과 파일을 열어서 확인하는 과정을 매번 반복해야 했다. 한두 번은 괜찮았다. 하지만 하루에 서너 번씩 녹음하고 변환하다 보니, 같은 명령어를 치는 자신이 점점 거슬렸다.
@@ -220,7 +220,7 @@ rm temp.wav
 그래서 간단한 웹 UI를 만들었다. Flask 서버 하나에 ffmpeg 변환과 whisper-cli 호출을 묶었고, 브라우저에서 파일을 드래그앤드롭하면 텍스트가 바로 나오는 구조다. 전체 파이프라인은 다음과 같다.
 
 
-![image.png](/notion-blog/images/notion/341ea3deaa2b80f197bef8060e63ed8a/image-2.png)
+![image.png](/images/notion/341ea3deaa2b80f197bef8060e63ed8a/image-2.png)
 
 1. 브라우저에서 음성 파일(m4a, mp3 등)을 업로드
 2. Flask 서버가 ffmpeg로 16kHz mono WAV로 변환

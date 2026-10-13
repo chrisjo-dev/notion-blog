@@ -35,7 +35,7 @@ const allPosts = (await getCollection('posts-en'))
             const thumbnail = getThumbnail(post.body);
             return (
             <article class="post-card">
-              <a href={`/notion-blog/en/posts/${post.slug}/`} class="card-link">
+              <a href={`/en/posts/${post.slug}/`} class="card-link">
                 {thumbnail && (
                   <div class="card-thumbnail">
                     <img src={thumbnail} alt={post.data.title} loading="lazy" />

@@ -52,17 +52,17 @@ level: 1
     Pipeline Stage UI
 
 
-        ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-1.png)
+        ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-1.png)
 
 
 # Security OSS (SonarQube, Trivy)
 
 1. Establishing SonarQube Quality Gate Pass Criteria
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-2.png)
+    ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-2.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-3.png)
+    ![image.png](/images/notion/2d6ea3deaa2b80eaa0e8ff55f8d780e0/image-3.png)
 
 
     Evaluation Criteria Description

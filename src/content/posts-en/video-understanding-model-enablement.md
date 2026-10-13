@@ -109,10 +109,10 @@ Multimodal embedding-based analysis (Marengo)
 # 3. From Video Search to Pipelines
 
 
-![image.png](/notion-blog/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-1.png)
+![image.png](/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-1.png)
 
 
-![image.png](/notion-blog/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-2.png)
+![image.png](/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-2.png)
 
 
 ### 1. Three Search Strategies

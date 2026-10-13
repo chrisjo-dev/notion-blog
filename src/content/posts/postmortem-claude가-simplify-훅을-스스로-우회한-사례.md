@@ -17,7 +17,7 @@ level: 1
 ## AS-IS → TO-BE
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-1.png)
+![image.png](/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-1.png)
 
 
 ### AS-IS: 기존 훅 (`pre-push-simplify.sh`)
@@ -58,7 +58,7 @@ printf '%s' '{
 ### TO-BE: 수정된 훅 + 로컬 skill
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-2.png)
+![image.png](/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-2.png)
 
 
 **1. 훅 메시지 수정**
