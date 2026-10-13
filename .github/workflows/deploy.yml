@@ -14,6 +14,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write   # Keep schedule alive 단계에서 워크플로를 다시 켜기 위해
 
 concurrency:
   group: "pages"
@@ -85,3 +86,11 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
+      - name: Keep schedule alive
+        # 저장소에 60일 동안 커밋이 없으면 GitHub가 예약 실행을 끈다(2026-08에 실제로 꺼졌었다).
+        # 실행할 때마다 이 워크플로를 다시 켜서 그 60일 타이머를 초기화한다.
+        if: always()
+        run: gh api -X PUT repos/${{ github.repository }}/actions/workflows/deploy.yml/enable
+        env:
+          GH_TOKEN: ${{ github.token }}
