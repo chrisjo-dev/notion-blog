@@ -7,7 +7,7 @@ interface Props {
 
 const { lang = 'ko' } = Astro.props;
 const currentPath = Astro.url.pathname;
-const base = lang === 'en' ? '/notion-blog/en/' : '/notion-blog/';
+const base = lang === 'en' ? '/en/' : '/';
 ---
 
 <nav class="nav-wrapper">
@@ -24,7 +24,7 @@ const base = lang === 'en' ? '/notion-blog/en/' : '/notion-blog/';
           Home
         </a>
         {lang === 'ko' && (
-          <a href="/notion-blog/archive/" class:list={['nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
+          <a href="/archive/" class:list={['nav-link', { active: currentPath.startsWith('/archive') }]}>
             Archive
           </a>
         )}
@@ -57,7 +57,7 @@ const base = lang === 'en' ? '/notion-blog/en/' : '/notion-blog/';
         Home
       </a>
       {lang === 'ko' && (
-        <a href="/notion-blog/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/notion-blog/archive') }]}>
+        <a href="/archive/" class:list={['mobile-nav-link', { active: currentPath.startsWith('/archive') }]}>
           Archive
         </a>
       )}

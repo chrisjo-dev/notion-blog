@@ -16,7 +16,7 @@ const { Content } = await post.render();
 const thumbnail = getThumbnail(post.body);
 
 // Build hreflang URL to Korean version
-const hrefLangKo = `https://chrisjo-dev.github.io/notion-blog/posts/${post.data.koreanSlug}/`;
+const hrefLangKo = `https://blog.wspace.ai.kr/posts/${post.data.koreanSlug}/`;
 
 // Get related English posts
 const allPosts = await getCollection('posts-en');
@@ -45,7 +45,7 @@ const relatedPosts = allPosts
   <article class="article-container">
     <!-- Breadcrumb Navigation -->
     <nav class="breadcrumb">
-      <a href="/notion-blog/en/" class="breadcrumb-link">Home</a>
+      <a href="/en/" class="breadcrumb-link">Home</a>
       <span class="breadcrumb-separator">/</span>
       <span class="breadcrumb-current">{post.data.title}</span>
     </nav>
@@ -75,7 +75,7 @@ const relatedPosts = allPosts
         <h2 class="related-title">Related Posts</h2>
         <div class="related-grid">
           {relatedPosts.map((relatedPost) => (
-            <a href={`/notion-blog/en/posts/${relatedPost.slug}/`} class="related-card">
+            <a href={`/en/posts/${relatedPost.slug}/`} class="related-card">
               <h3 class="related-card-title">{relatedPost.data.title}</h3>
               {relatedPost.data.description && (
                 <p class="related-card-description">{relatedPost.data.description}</p>

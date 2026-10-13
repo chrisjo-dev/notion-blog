@@ -90,7 +90,7 @@ async function downloadImage(url, pageId, imageName) {
   const fileName = `${imageName}${ext}`;
   const pageDir = path.join(IMAGES_DIR, pageId);
   const filePath = path.join(pageDir, fileName);
-  const localPath = `/notion-blog/images/notion/${pageId}/${fileName}`;
+  const localPath = `/images/notion/${pageId}/${fileName}`;
 
   // Skip if image already exists
   try {

@@ -112,7 +112,7 @@ By doing the install and cache cleanup **in a single layer**, the cache never en
 ## 3. Copy-on-Write (CoW)
 
 
-![image.png](/notion-blog/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-1.png)
+![image.png](/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-1.png)
 
 
 ### Structure When a Container Runs
@@ -274,7 +274,7 @@ Docker used to support other storage drivers (AUFS, devicemapper, btrfs, etc.), 
 | **merged** | Unified view combining lowerdir + upperdir | Shelves + desk appearing as one complete library |
 
 
-![image.png](/notion-blog/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-2.png)
+![image.png](/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-2.png)
 
 
 When you run `ls /` inside a container, what you see is the merged directory.

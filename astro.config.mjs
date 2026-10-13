@@ -4,8 +4,7 @@ import { remarkBookmark } from './src/plugins/remark-bookmark.js';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://chrisjo-dev.github.io',
-  base: '/notion-blog',
+  site: 'https://blog.wspace.ai.kr',
   integrations: [sitemap()],
   markdown: {
     remarkPlugins: [remarkBookmark],

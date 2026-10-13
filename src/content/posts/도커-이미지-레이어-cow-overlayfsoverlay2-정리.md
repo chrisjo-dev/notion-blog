@@ -112,7 +112,7 @@ RUN yum install -y nginx python3 git && \
 ## 3. Copy-on-Write (CoW)
 
 
-![image.png](/notion-blog/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-1.png)
+![image.png](/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-1.png)
 
 
 ### 컨테이너 실행 시 구조
@@ -274,7 +274,7 @@ docker run my-nginx  → 빈 쓰기 레이어만 추가 (거의 0MB) → 컨테�
 | **merged**   | lowerdir + upperdir를 합친 통합 뷰 | 서가 + 책상이 하나의 완전한 도서관처럼 보이는 것 |
 
 
-![image.png](/notion-blog/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-2.png)
+![image.png](/images/notion/32bea3deaa2b807f9848e3f4c5cc8a2e/image-2.png)
 
 
 컨테이너 안에서 `ls /`를 치면 보이는 것이 바로 merged 디렉토리다.

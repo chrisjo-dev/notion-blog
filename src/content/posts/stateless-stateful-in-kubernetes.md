@@ -51,7 +51,7 @@ Pod 안에 세션이나 주문 데이터 같은 비즈니스 데이터가 있으
 ## 3. Stateless vs Stateful 비교 (Comparison)
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-1.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-1.png)
 
 
 |                          | Stateless (무상태)     | Stateful (상태 유지)                 |
@@ -140,8 +140,8 @@ Stateful 워크로드를 어떻게 처리하느냐는 환경에 따라 달라진
 ---
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-2.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-2.png)
 
 
-![image.png](/notion-blog/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-3.png)
+![image.png](/images/notion/333ea3deaa2b80bf9cc6f305ffa376b4/image-3.png)
 

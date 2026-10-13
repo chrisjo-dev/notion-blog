@@ -47,7 +47,7 @@ This loop is called the **Reconciliation Loop** or **Control Loop**.
 
 ## 3. Change Detection: Watch and Informer
 
-![image.png](/notion-blog/images/notion/335ea3deaa2b80719889dd6192165d18/image-1.png)
+![image.png](/images/notion/335ea3deaa2b80719889dd6192165d18/image-1.png)
 
 ### 3-1. Polling vs Event-driven
 

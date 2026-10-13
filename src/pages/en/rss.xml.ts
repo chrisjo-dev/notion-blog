@@ -16,8 +16,8 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description || '',
       pubDate: new Date(post.data.date),
-      // NOTE: '/notion-blog' must match astro.config.mjs base
-      link: `/notion-blog/en/posts/${post.slug}/`,
+      // NOTE: link must be root-relative (base is now '/')
+      link: `/en/posts/${post.slug}/`,
     })),
   });
 }

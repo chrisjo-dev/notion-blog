@@ -109,10 +109,10 @@ OTT, 숏폼, 라이브 스트리밍 등 플랫폼이 늘어나면서 제작되�
 # 3. Video 검색부터 파이프라인까지
 
 
-![image.png](/notion-blog/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-1.png)
+![image.png](/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-1.png)
 
 
-![image.png](/notion-blog/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-2.png)
+![image.png](/images/notion/33dea3deaa2b80b99553eba207dc3d68/image-2.png)
 
 
 ### 1. 검색 전략 3가지

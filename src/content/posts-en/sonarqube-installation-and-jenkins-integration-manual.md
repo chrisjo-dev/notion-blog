@@ -80,10 +80,10 @@ kubectl port-forward svc/sonarqube-sonarqube 9000:9000 -n sonarqube
 
 1. **Profile → My Account → Security → Generate Tokens**
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-1.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-1.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-2.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-2.png)
 
 2. Token name: `jenkins-integration` , Type: Global Analysis Token
 
@@ -114,15 +114,15 @@ kubectl port-forward svc/sonarqube-sonarqube 9000:9000 -n sonarqube
 
 - Manage Jenkins → **Global Tool Configuration**
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-3.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-3.png)
 
 - Add SonarQube Scanner (auto-install).
 The name used here is the command identifier that will be called from the Jenkinsfile.
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-4.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-4.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-5.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-5.png)
 
 
 ### 3.3 SonarQube Server Registration
@@ -134,10 +134,10 @@ The name used here is the command identifier that will be called from the Jenkin
 The SonarQube secret key generated earlier
 Kind: Secret text
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-6.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-6.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-7.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-7.png)
 
 
 ---
@@ -150,7 +150,7 @@ Kind: Secret text
 
 - Default `Sonar way` or custom-defined
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-8.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-8.png)
 
 
 ### 4.3 sonar-project.properties Example
@@ -272,7 +272,7 @@ stage('SonarQube Quality Gate') {
 ### 5.2 Webhook Configuration
 
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-9.png)
+![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-9.png)
 
 - SonarQube: Project Settings **→ Webhooks → Create**
 - Name: `Jenkins-sonarqube-quality`
@@ -352,4 +352,4 @@ curl -X POST http://jenkins:8080/sonarqube-webhook/ -d '{"test":"ok"}'
 If you'd like, I can also prepare this document in **PDF distribution format** or as a **company wiki Markdown** version. Which format do you need?
 
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-10.png)
+![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-10.png)

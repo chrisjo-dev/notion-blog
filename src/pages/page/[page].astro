@@ -68,7 +68,7 @@ const { posts, currentPage, totalPages, totalPosts } = Astro.props;
             const thumbnail = getThumbnail(post.body);
             return (
             <article class="post-card">
-              <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
+              <a href={`/posts/${post.slug}/`} class="card-link">
                 {thumbnail && (
                   <div class="card-thumbnail">
                     <img src={thumbnail} alt={post.data.title} loading="lazy" />
@@ -111,7 +111,7 @@ const { posts, currentPage, totalPages, totalPosts } = Astro.props;
       {totalPages > 1 && (
         <div class="pagination">
           <a
-            href={currentPage > 1 ? (currentPage === 2 ? '/notion-blog/' : `/notion-blog/page/${currentPage - 1}/`) : '#'}
+            href={currentPage > 1 ? (currentPage === 2 ? '/' : `/page/${currentPage - 1}/`) : '#'}
             class:list={['pagination-btn', { disabled: currentPage === 1 }]}
             aria-disabled={currentPage === 1}
           >
@@ -119,7 +119,7 @@ const { posts, currentPage, totalPages, totalPosts } = Astro.props;
           </a>
           <span class="page-info">Page {currentPage} of {totalPages}</span>
           <a
-            href={currentPage < totalPages ? `/notion-blog/page/${currentPage + 1}/` : '#'}
+            href={currentPage < totalPages ? `/page/${currentPage + 1}/` : '#'}
             class:list={['pagination-btn', { disabled: currentPage === totalPages }]}
             aria-disabled={currentPage === totalPages}
           >

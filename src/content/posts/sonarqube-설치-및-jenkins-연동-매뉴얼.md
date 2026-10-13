@@ -80,10 +80,10 @@ kubectl port-forward svc/sonarqube-sonarqube 9000:9000 -n sonarqube
 
 1. **프로필 → My Account → Security → Generate Tokens**
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-1.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-1.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-2.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-2.png)
 
 2. 토큰 이름: `jenkins-integration` , 타입: Global Analysis Token
 
@@ -114,15 +114,15 @@ kubectl port-forward svc/sonarqube-sonarqube 9000:9000 -n sonarqube
 
 - Jenkins 관리 → **Global Tool Configuration**
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-3.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-3.png)
 
 - SonarQube Scanner 추가 (자동 설치),
 여기서 사용할 이름은 젠킨스 파일에서 호출할 커멘드 지정 이름.
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-4.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-4.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-5.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-5.png)
 
 
 ### 3.3 SonarQube 서버 등록
@@ -134,10 +134,10 @@ kubectl port-forward svc/sonarqube-sonarqube 9000:9000 -n sonarqube
 아까 발급받은 sonarqube 시크릿키
 Kind: Secret text
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-6.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-6.png)
 
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-7.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-7.png)
 
 
 ---
@@ -150,7 +150,7 @@ Kind: Secret text
 
 - 기본 `Sonar way` 또는 사용자 정의
 
-    ![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-8.png)
+    ![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-8.png)
 
 
 ### 4.3 sonar-project.properties 예시
@@ -272,7 +272,7 @@ stage('SonarQube Quality Gate') {
 ### 5.2 Webhook 설정
 
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-9.png)
+![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-9.png)
 
 - SonarQube: 프로젝트 셋팅 **→ Webhooks → Create**
 - Name: `Jenkins-sonarqube-quality`
@@ -353,5 +353,5 @@ curl -X POST http://jenkins:8080/sonarqube-webhook/ -d '{"test":"ok"}'
 원하시면 제가 이 문서를 **PDF 배포용** 또는 **사내 위키용 Markdown** 버전으로도 만들어드릴 수 있어요. 어떤 형식이 필요하세요?
 
 
-![image.png](/notion-blog/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-10.png)
+![image.png](/images/notion/2d6ea3deaa2b806aad74ebdcd6b1737d/image-10.png)
 

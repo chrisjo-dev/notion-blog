@@ -13,14 +13,14 @@ export async function GET(context: APIContext) {
     title: 'Chris Blog',
     description: 'Tech blog powered by Notion & Astro',
     // NOTE: context.site returns site config WITHOUT base path.
-    // Item links already include /notion-blog/ prefix, so no base appending needed.
+    // Item links already include / prefix, so no base appending needed.
     site: String(context.site),
     items: blogPosts.map(post => ({
       title: post.data.title,
       description: post.data.description || '',
       pubDate: new Date(post.data.date),
-      // NOTE: '/notion-blog' must match astro.config.mjs base
-      link: `/notion-blog/posts/${post.slug}/`,
+      // NOTE: link must be root-relative (base is now '/')
+      link: `/posts/${post.slug}/`,
     })),
   });
 }

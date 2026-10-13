@@ -14,7 +14,7 @@ level: 1
 ---
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-1.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-1.png)
 
 
 ## 1. VM vs 컨테이너: 격리 방식의 차이
@@ -45,7 +45,7 @@ level: 1
 ## 2. 컨테이너 격리를 가능하게 하는 리눅스 핵심 기술
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-2.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-2.png)
 
 
 | 기술                           | 역할                                         | 비유                    |
@@ -115,7 +115,7 @@ supervisord 방식이 이 원칙들에 어긋나는 구체적인 이유
 - **로그가 뒤죽박죽.** stdout에 여러 서비스 로그가 섞이면 장애 원인 추적이 지옥이 된다.
 - **배포가 통째로.** 웹서버만 업데이트하고 싶어도 이미지를 통째로 다시 빌드해야 한다.
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-3.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-3.png)
 
 > ⚠️ 예외: 레거시 앱을 컨테이너로 마이그레이션하는 과도기에는 어쩔 수 없이 supervisord를 쓰기도 한다. 하지만 이는 "어쩔 수 없이"지 "권장"이 아니다. 최종 목표는 서비스를 분리하는 것.
 > 💡 한 줄 요약: 할 수는 있지만, 하면 할수록 컨테이너를 쓰는 의미가 사라진다. 그냥 VM 쓰는 거랑 다를 바가 없어진다.

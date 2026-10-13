@@ -66,8 +66,8 @@ const currentPath = Astro.url.pathname;
       <!-- All Posts -->
       <li>
         <a
-          href="/notion-blog/"
-          class:list={['category-link', { active: currentPath === '/notion-blog/' }]}
+          href="/"
+          class:list={['category-link', { active: currentPath === '/' }]}
         >
           <span class="category-name">All Posts</span>
           <span class="category-count">{totalPosts}</span>
@@ -81,7 +81,7 @@ const currentPath = Astro.url.pathname;
         return (
           <li>
             <a
-              href={`/notion-blog/category/${categorySlug}/`}
+              href={`/category/${categorySlug}/`}
               class:list={[
                 'category-link',
                 { active: currentPath.includes(`/category/${categorySlug}/`) }

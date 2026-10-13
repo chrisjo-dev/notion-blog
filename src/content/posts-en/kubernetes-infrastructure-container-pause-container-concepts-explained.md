@@ -19,7 +19,7 @@ level: 1
 ## Concept Map - Core Keyword Connections
 
 
-![image.png](/notion-blog/images/notion/334ea3deaa2b808991f2fb302b269dfa/image-1.png)
+![image.png](/images/notion/334ea3deaa2b808991f2fb302b269dfa/image-1.png)
 
 
 ---

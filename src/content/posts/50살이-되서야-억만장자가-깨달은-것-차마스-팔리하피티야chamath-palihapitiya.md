@@ -14,7 +14,7 @@ level: 1
 ---
 
 
-![image.png](/notion-blog/images/notion/325ea3deaa2b80b89c40e4a5256f57b7/image-1.png)
+![image.png](/images/notion/325ea3deaa2b80b89c40e4a5256f57b7/image-1.png)
 
 
 [bookmark](https://www.youtube.com/watch?v=YEzALU9tWBg)

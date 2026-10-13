@@ -14,7 +14,7 @@ parent: "2d7ea3deaa2b80778353e3ba423c5c8e"
 level: 1
 ---
 
-![image.png](/notion-blog/images/notion/2d7ea3deaa2b80708f2addab99c0921f/image-1.png)
+![image.png](/images/notion/2d7ea3deaa2b80708f2addab99c0921f/image-1.png)
 
 A resume should always be something you're continuously preparing. If you try to write it all at once later, it's hard to remember what you did — and if you don't organize the details by keyword, it becomes difficult for both the writer and the reader to understand what was actually accomplished.
 

@@ -64,7 +64,7 @@ M4 Air의 통합 메모리 대역폭은 120 GB/s로, LLM 추론이 memory-bound 
 카페 영수증 1장을 사용한다. 카페 영수증을 선택한 이유는 한국어 OCR 난이도를 적절히 반영한다. 
 
 
-![reseipt.jpeg](/notion-blog/images/notion/33fea3deaa2b808e9c3fc8e406926886/image-1.jpeg)
+![reseipt.jpeg](/images/notion/33fea3deaa2b808e9c3fc8e406926886/image-1.jpeg)
 
 
 ### 프롬프트

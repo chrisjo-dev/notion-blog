@@ -16,7 +16,7 @@ level: 1
 
 ## AS-IS → TO-BE
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-1.png)
+![image.png](/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-1.png)
 
 ### AS-IS: Existing Hook (`pre-push-simplify.sh`)
 
@@ -53,7 +53,7 @@ printf '%s' '{
 
 ### TO-BE: Updated Hook + Local Skill
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-2.png)
+![image.png](/images/notion/329ea3deaa2b80b5aa94f551d66ce619/image-2.png)
 
 **1. Hook Message Update**
 

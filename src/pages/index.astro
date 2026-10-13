@@ -50,7 +50,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
             const thumbnail = getThumbnail(post.body);
             return (
             <article class="post-card">
-              <a href={`/notion-blog/posts/${post.slug}/`} class="card-link">
+              <a href={`/posts/${post.slug}/`} class="card-link">
                 {thumbnail && (
                   <div class="card-thumbnail">
                     <img src={thumbnail} alt={post.data.title} loading="lazy" />
@@ -94,7 +94,7 @@ const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
         <div class="pagination">
           <a class="pagination-btn disabled" aria-disabled="true">Previous</a>
           <span class="page-info">Page 1 of {totalPages}</span>
-          <a href="/notion-blog/page/2/" class="pagination-btn">Next</a>
+          <a href="/page/2/" class="pagination-btn">Next</a>
         </div>
       )}
       </section>

@@ -35,7 +35,7 @@ level: 1
 # **2. 자원 성격에 따른 피해**
 
 
-![image.png](/notion-blog/images/notion/337ea3deaa2b80d6a756c6459f2a56ac/image-1.png)
+![image.png](/images/notion/337ea3deaa2b80d6a756c6459f2a56ac/image-1.png)
 
 
 자원의 종류에 따라 '시끄러운 이웃'이 끼치는 영향이 다릅니다. 이를 이해해야 적절한 대응책을 세울 수 있습니다.

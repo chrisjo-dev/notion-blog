@@ -15,7 +15,7 @@ level: 1
 ---
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-1.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-1.png)
 
 
 ## 1. VM vs Container: Differences in Isolation Approach
@@ -46,7 +46,7 @@ level: 1
 ## 2. Core Linux Technologies That Enable Container Isolation
 
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-2.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-2.png)
 
 
 | Technology | Role | Analogy |
@@ -116,7 +116,7 @@ Specific reasons why the supervisord approach violates these principles:
 - **Logs become a mess.** When multiple service logs are mixed in stdout, tracing the cause of an incident becomes a nightmare.
 - **Deployments are all-or-nothing.** Even if you only want to update the web server, you have to rebuild the entire image.
 
-![image.png](/notion-blog/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-3.png)
+![image.png](/images/notion/329ea3deaa2b8061b767cee74e688c1a/image-3.png)
 
 > ⚠️ Exception: When migrating legacy apps to containers during a transitional period, using supervisord may be unavoidable. But that's "unavoidable," not "recommended." The end goal is always to separate services.
 > 💡 One-liner: You can do it, but the more you do, the more pointless it becomes to use containers. At that point, you might as well just use a VM.
