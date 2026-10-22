@@ -15,6 +15,7 @@ interface Props {
   }>;
   lang?: 'ko' | 'en';
   hrefLangAlternate?: string;
+  noindex?: boolean;
   article?: {
     publishedTime: string;
     modifiedTime: string;
@@ -22,7 +23,9 @@ interface Props {
   };
 }
 
-const { title, description = '', ogImage, keywords, breadcrumbs, lang = 'ko', hrefLangAlternate, article } = Astro.props;
+const { title, description = '', ogImage, keywords, breadcrumbs, lang = 'ko', hrefLangAlternate, noindex = false, article } = Astro.props;
+// /en/ pages and explicitly flagged pages are excluded from indexing
+const isNoindex = noindex || lang === 'en';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // ogImage from getThumbnail() already includes / prefix
 const socialImageURL = ogImage
@@ -68,8 +71,11 @@ const postsData = allPosts.map(post => ({
     <!-- Naver Search Advisor (Korean only) -->
     {lang === 'ko' && <meta name="naver-site-verification" content="PLACEHOLDER_NAVER_CODE" />}
 
-    <!-- hreflang tags -->
-    {hrefLangAlternate && (
+    <!-- Robots: noindex for /en/ pages and explicitly excluded posts -->
+    {isNoindex && <meta name="robots" content="noindex, follow" />}
+
+    <!-- hreflang tags: only when both sides are indexable -->
+    {hrefLangAlternate && !isNoindex && (
       <>
         <link rel="alternate" hreflang={lang === 'en' ? 'ko' : 'en'} href={hrefLangAlternate} />
         <link rel="alternate" hreflang={lang} href={canonicalURL} />

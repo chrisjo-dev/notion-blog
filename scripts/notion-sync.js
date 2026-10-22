@@ -282,6 +282,12 @@ async function convertPageToMarkdown(pageInfo) {
 
     let content = await processMarkdownContent(mdString, pageId);
 
+    // Skip category container pages that have no body content
+    if (!content.trim()) {
+      console.log(`  ⤷ Skipped: ${title} (no body content — category page, not synced)`);
+      return null;
+    }
+
     const description = extractDescription(content);
 
     const allTags = hierarchy.length > 1 ? hierarchy.slice(0, -1) : [];
